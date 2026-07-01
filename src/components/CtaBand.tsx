@@ -1,0 +1,32 @@
+import { Phone } from "lucide-react";
+import { settings } from "@/lib/content";
+import { ButtonLink } from "@/components/ButtonLink";
+
+type CtaBandProps = {
+  title?: string;
+  text?: string;
+};
+
+export function CtaBand({
+  title = "Chcesz dobrze zabezpieczyc swoje auto?",
+  text = "Najdokladniejsza wycena powstaje po rozmowie i obejrzeniu samochodu."
+}: CtaBandProps) {
+  return (
+    <section className="cta-band">
+      <div>
+        <p className="eyebrow">Kontakt</p>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div className="cta-actions">
+        <a className="button button-primary" href={settings.phoneHref}>
+          <Phone aria-hidden="true" size={18} />
+          <span>{settings.phoneDisplay}</span>
+        </a>
+        <ButtonLink href="/kontakt" variant="secondary">
+          Formularz kontaktowy
+        </ButtonLink>
+      </div>
+    </section>
+  );
+}
