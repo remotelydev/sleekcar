@@ -4,15 +4,18 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactForm } from "@/components/ContactForm";
 import { JsonLd } from "@/components/JsonLd";
 import { MapEmbed } from "@/components/MapEmbed";
-import { settings } from "@/lib/content";
+import { getContactPageContent, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = createMetadata({
-  title: "Kontakt",
-  description:
-    "Skontaktuj się ze Sleek Car Autokosmetyka w Turku. Telefon, adres, godziny otwarcia, formularz i mapa dojazdu.",
-  path: "/kontakt"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getContactPageContent();
+
+  return createMetadata({
+    title: page.seoTitle,
+    description: page.seoDescription,
+    path: "/kontakt"
+  });
+}
 
 const contactSchema = {
   "@context": "https://schema.org",
@@ -21,18 +24,17 @@ const contactSchema = {
   url: absoluteUrl("/kontakt")
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [page, settings] = await Promise.all([getContactPageContent(), getSettings()]);
+
   return (
     <>
       <JsonLd data={contactSchema} />
       <section className="page-hero compact">
         <Breadcrumbs items={[{ label: "Kontakt" }]} />
         <p className="eyebrow">Kontakt</p>
-        <h1>Umów oględziny auta albo zapytaj o konkretną usługę.</h1>
-        <p>
-          Najdokładniejszą wycenę przygotujemy po rozmowie i obejrzeniu samochodu.
-          Możesz zadzwonić, wysłać formularz albo podjechać do studia w Turku.
-        </p>
+        <h1>{page.title}</h1>
+        <p>{page.lead}</p>
       </section>
 
       <section className="section contact-layout">
@@ -66,7 +68,7 @@ export default function ContactPage() {
 
         <div className="form-panel">
           <p className="eyebrow">Formularz</p>
-          <h2>Napisz wiadomość</h2>
+          <h2>{page.formTitle}</h2>
           <ContactForm />
         </div>
       </section>
@@ -74,9 +76,9 @@ export default function ContactPage() {
       <section className="section map-section">
         <div>
           <p className="eyebrow">Dojazd</p>
-          <h2>ul. Milewskiego 10e, Turek</h2>
+          <h2>{page.mapTitle}</h2>
         </div>
-        <MapEmbed />
+        <MapEmbed settings={settings} />
       </section>
     </>
   );

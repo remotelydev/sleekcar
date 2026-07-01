@@ -3,40 +3,45 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
 import { PostCard } from "@/components/PostCard";
-import { posts } from "@/lib/content";
+import { getNewsPageContent, getPosts, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = createMetadata({
-  title: "Aktualności, poradniki i vlog detailingowy",
-  description:
-    "Poradniki o folii PPF, zabezpieczeniu lakieru, korekcie i kulisach pracy studia detailingowego Sleek Car w Turku.",
-  path: "/aktualnosci"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getNewsPageContent();
 
-const newsSchema = {
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  name: "Aktualności Sleek Car",
-  url: absoluteUrl("/aktualnosci"),
-  blogPost: posts.map((post) => ({
-    "@type": "BlogPosting",
-    headline: post.title,
-    url: absoluteUrl(`/aktualnosci/${post.slug}`)
-  }))
-};
+  return createMetadata({
+    title: page.seoTitle,
+    description: page.seoDescription,
+    path: "/aktualnosci"
+  });
+}
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const [page, posts, settings] = await Promise.all([
+    getNewsPageContent(),
+    getPosts(),
+    getSettings()
+  ]);
+  const newsSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Aktualności Sleek Car",
+    url: absoluteUrl("/aktualnosci"),
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      url: absoluteUrl(`/aktualnosci/${post.slug}`)
+    }))
+  };
+
   return (
     <>
       <JsonLd data={newsSchema} />
       <section className="page-hero compact">
         <Breadcrumbs items={[{ label: "Aktualności" }]} />
         <p className="eyebrow">Aktualności i vlog</p>
-        <h1>Poradniki, kulisy pracy i świeże realizacje ze studia.</h1>
-        <p>
-          Ta sekcja jest gotowa na wpisy poradnikowe, krótkie aktualności i odcinki
-          vloga osadzane z YouTube albo Instagrama.
-        </p>
+        <h1>{page.title}</h1>
+        <p>{page.lead}</p>
       </section>
 
       <section className="section">
@@ -50,6 +55,7 @@ export default function NewsPage() {
       <CtaBand
         title="Masz pytanie po przeczytaniu poradnika?"
         text="Najprościej zadzwonić i opisać auto. Od razu podpowiemy, jaki wariant ma sens."
+        settings={settings}
       />
     </>
   );

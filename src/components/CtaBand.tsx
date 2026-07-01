@@ -1,15 +1,17 @@
 import { Phone } from "lucide-react";
-import { settings } from "@/lib/content";
+import { settings as fallbackSettings } from "@/lib/content";
 import { ButtonLink } from "@/components/ButtonLink";
 
 type CtaBandProps = {
   title?: string;
   text?: string;
+  settings?: typeof fallbackSettings;
 };
 
 export function CtaBand({
   title = "Chcesz dobrze zabezpieczyc swoje auto?",
-  text = "Najdokladniejsza wycena powstaje po rozmowie i obejrzeniu samochodu."
+  text = "Najdokladniejsza wycena powstaje po rozmowie i obejrzeniu samochodu.",
+  settings = fallbackSettings
 }: CtaBandProps) {
   return (
     <section className="cta-band">

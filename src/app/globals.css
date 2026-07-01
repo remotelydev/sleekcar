@@ -9,7 +9,6 @@
   --muted-strong: #d7dde4;
   --accent: #e7aa22;
   --accent-strong: #ffd166;
-  --accent-deep: #b97708;
   --accent-rgb: 231, 170, 34;
   --danger: #e05a4f;
   --success: #73c78b;
@@ -169,7 +168,7 @@ small {
 
 .phone-cta {
   align-items: center;
-  background: linear-gradient(135deg, var(--accent-strong), var(--accent) 54%, var(--accent-deep));
+  background: var(--accent);
   border-radius: var(--radius);
   color: #111418;
   display: inline-flex;
@@ -181,7 +180,7 @@ small {
 }
 
 .phone-cta:hover {
-  background: linear-gradient(135deg, #ffe09a, var(--accent-strong) 52%, var(--accent));
+  background: var(--accent-strong);
 }
 
 .header-actions {
@@ -228,13 +227,13 @@ small {
 }
 
 .button-primary {
-  background: linear-gradient(135deg, var(--accent-strong), var(--accent) 54%, var(--accent-deep));
+  background: var(--accent);
   box-shadow: 0 12px 28px rgba(var(--accent-rgb), 0.18);
   color: #111418;
 }
 
 .button-primary:hover {
-  background: linear-gradient(135deg, #ffe09a, var(--accent-strong) 52%, var(--accent));
+  background: var(--accent-strong);
 }
 
 .button-secondary {
@@ -668,6 +667,22 @@ small {
   gap: 0.8rem;
 }
 
+.process-section {
+  align-items: start;
+}
+
+.faq-section {
+  align-items: start;
+}
+
+.process-section > div:first-child {
+  max-width: 48rem;
+}
+
+.faq-section > div:first-child {
+  max-width: 48rem;
+}
+
 .process-list article,
 .faq-list article {
   background: var(--surface);
@@ -969,10 +984,29 @@ small {
   .contact-layout,
   .article-layout,
   .detail-grid,
-  .process-section,
-  .faq-section,
   .map-section {
     grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.72fr);
+  }
+
+  .faq-section,
+  .process-section {
+    gap: 1.5rem;
+  }
+
+  .process-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .faq-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process-list article {
+    min-height: 100%;
+  }
+
+  .faq-list article {
+    min-height: 100%;
   }
 
   .detail-hero {

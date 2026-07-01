@@ -4,9 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Phone, X } from "lucide-react";
 import { useState } from "react";
-import { navItems, settings } from "@/lib/content";
+import { navItems, settings as fallbackSettings } from "@/lib/content";
 
-export function Header() {
+type HeaderProps = {
+  settings?: typeof fallbackSettings;
+};
+
+export function Header({ settings = fallbackSettings }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);

@@ -4,44 +4,53 @@ import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
 import { SectionHeader } from "@/components/SectionHeader";
 import { ServiceCard } from "@/components/ServiceCard";
-import { services } from "@/lib/content";
+import {
+  getOfferPageContent,
+  getServices,
+  getSettings
+} from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = createMetadata({
-  title: "Oferta detailingu samochodowego w Turku",
-  description:
-    "Folia PPF, zabezpieczenie lakieru, korekta lakieru, przyciemnianie szyb, czyszczenie wnętrza i pozostałe usługi Sleek Car w Turku.",
-  path: "/oferta"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getOfferPageContent();
 
-const offerSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Oferta Sleek Car",
-  url: absoluteUrl("/oferta"),
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: services.map((service, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: service.title,
-      url: absoluteUrl(`/oferta/${service.slug}`)
-    }))
-  }
-};
+  return createMetadata({
+    title: page.seoTitle,
+    description: page.seoDescription,
+    path: "/oferta"
+  });
+}
 
-export default function OfferPage() {
+export default async function OfferPage() {
+  const [page, services, settings] = await Promise.all([
+    getOfferPageContent(),
+    getServices(),
+    getSettings()
+  ]);
+  const offerSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Oferta Sleek Car",
+    url: absoluteUrl("/oferta"),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: services.map((service, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: service.title,
+        url: absoluteUrl(`/oferta/${service.slug}`)
+      }))
+    }
+  };
+
   return (
     <>
       <JsonLd data={offerSchema} />
       <section className="page-hero compact">
         <Breadcrumbs items={[{ label: "Oferta" }]} />
         <p className="eyebrow">Oferta</p>
-        <h1>Detailing, zabezpieczenie lakieru i usługi ochronne dla auta.</h1>
-        <p>
-          Każda usługa ma osobną podstronę, opis korzyści, przebieg prac i miejsce
-          na ceny, FAQ oraz galerie. To dobra baza pod Prismic i lokalne SEO.
-        </p>
+        <h1>{page.title}</h1>
+        <p>{page.lead}</p>
       </section>
 
       <section className="section">
@@ -60,6 +69,7 @@ export default function OfferPage() {
       <CtaBand
         title="Nie wiesz, od czego zacząć?"
         text="Opowiedz, jak używasz auta. Dobierzemy zakres, który ma sens technicznie i budżetowo."
+        settings={settings}
       />
     </>
   );

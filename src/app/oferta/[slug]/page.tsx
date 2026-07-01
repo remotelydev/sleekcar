@@ -5,14 +5,15 @@ import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
-import { services, getService, settings } from "@/lib/content";
+import { getService, getServices, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const services = await getServices();
   return services.map((service) => ({ slug: service.slug }));
 }
 
@@ -20,7 +21,7 @@ export async function generateMetadata({
   params
 }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = await getService(slug);
 
   if (!service) {
     return {};
@@ -36,7 +37,7 @@ export async function generateMetadata({
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = getService(slug);
+  const [service, settings] = await Promise.all([getService(slug), getSettings()]);
 
   if (!service) {
     notFound();
@@ -167,6 +168,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <CtaBand
         title={`Umów: ${service.title.toLowerCase()}`}
         text="Najlepiej zacząć od rozmowy i krótkich oględzin auta. Wtedy zakres i cena będą konkretne."
+        settings={settings}
       />
     </>
   );

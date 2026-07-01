@@ -4,14 +4,19 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
-import { getRealization, realizations, settings } from "@/lib/content";
+import {
+  getRealization,
+  getRealizations,
+  getSettings
+} from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
 type RealizationPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const realizations = await getRealizations();
   return realizations.map((realization) => ({ slug: realization.slug }));
 }
 
@@ -19,7 +24,7 @@ export async function generateMetadata({
   params
 }: RealizationPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const realization = getRealization(slug);
+  const realization = await getRealization(slug);
 
   if (!realization) {
     return {};
@@ -35,7 +40,10 @@ export async function generateMetadata({
 
 export default async function RealizationPage({ params }: RealizationPageProps) {
   const { slug } = await params;
-  const realization = getRealization(slug);
+  const [realization, settings] = await Promise.all([
+    getRealization(slug),
+    getSettings()
+  ]);
 
   if (!realization) {
     notFound();
@@ -125,6 +133,7 @@ export default async function RealizationPage({ params }: RealizationPageProps) 
       <CtaBand
         title="Umów podobny zakres prac"
         text="Przy realizacjach najlepiej zacząć od zdjęć i krótkiego opisu oczekiwań."
+        settings={settings}
       />
     </>
   );

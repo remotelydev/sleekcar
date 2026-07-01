@@ -3,44 +3,53 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
 import { RealizationCard } from "@/components/RealizationCard";
-import { realizations } from "@/lib/content";
+import {
+  getRealizations,
+  getRealizationsPageContent,
+  getSettings
+} from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = createMetadata({
-  title: "Realizacje detailingu i folii PPF",
-  description:
-    "Wybrane realizacje Sleek Car: folia PPF, korekta lakieru, detailing wnętrza i zabezpieczenie samochodów w Turku.",
-  path: "/realizacje"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getRealizationsPageContent();
 
-const realizationsSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Realizacje Sleek Car",
-  url: absoluteUrl("/realizacje"),
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: realizations.map((realization, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: realization.title,
-      url: absoluteUrl(`/realizacje/${realization.slug}`)
-    }))
-  }
-};
+  return createMetadata({
+    title: page.seoTitle,
+    description: page.seoDescription,
+    path: "/realizacje"
+  });
+}
 
-export default function RealizationsPage() {
+export default async function RealizationsPage() {
+  const [page, realizations, settings] = await Promise.all([
+    getRealizationsPageContent(),
+    getRealizations(),
+    getSettings()
+  ]);
+  const realizationsSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Realizacje Sleek Car",
+    url: absoluteUrl("/realizacje"),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: realizations.map((realization, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: realization.title,
+        url: absoluteUrl(`/realizacje/${realization.slug}`)
+      }))
+    }
+  };
+
   return (
     <>
       <JsonLd data={realizationsSchema} />
       <section className="page-hero compact">
         <Breadcrumbs items={[{ label: "Realizacje" }]} />
         <p className="eyebrow">Realizacje</p>
-        <h1>Efekty prac, które pomagają klientom podjąć decyzję.</h1>
-        <p>
-          Zamiast przypadkowej galerii: każde auto może mieć opis zakresu, zdjęcie
-          główne, galerię i link do usługi, którą sprzedaje.
-        </p>
+        <h1>{page.title}</h1>
+        <p>{page.lead}</p>
       </section>
 
       <section className="section">
@@ -54,6 +63,7 @@ export default function RealizationsPage() {
       <CtaBand
         title="Chcesz podobny efekt na swoim aucie?"
         text="Podeślij model auta i zdjęcia lakieru. Ustalimy, jaki zakres będzie miał największy sens."
+        settings={settings}
       />
     </>
   );

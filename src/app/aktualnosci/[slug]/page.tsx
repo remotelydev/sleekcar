@@ -4,20 +4,21 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
-import { getPost, posts, settings } from "@/lib/content";
+import { getPost, getPosts, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const posts = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
 
   if (!post) {
     return {};
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const [post, settings] = await Promise.all([getPost(slug), getSettings()]);
 
   if (!post) {
     notFound();
@@ -102,7 +103,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </section>
       </article>
 
-      <CtaBand />
+      <CtaBand settings={settings} />
     </>
   );
 }

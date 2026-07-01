@@ -1,6 +1,10 @@
-import { settings } from "@/lib/content";
+import { settings as fallbackSettings } from "@/lib/content";
 
-export function MapEmbed() {
+type MapEmbedProps = {
+  settings?: typeof fallbackSettings;
+};
+
+export function MapEmbed({ settings = fallbackSettings }: MapEmbedProps) {
   return (
     <div className="map-frame">
       <iframe

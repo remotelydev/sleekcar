@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { Clock, MapPin, Phone } from "lucide-react";
-import { navItems, settings } from "@/lib/content";
+import { navItems, settings as fallbackSettings } from "@/lib/content";
 
-export function Footer() {
+type FooterProps = {
+  settings?: typeof fallbackSettings;
+};
+
+export function Footer({ settings = fallbackSettings }: FooterProps) {
   return (
     <footer className="site-footer">
       <div className="footer-grid">

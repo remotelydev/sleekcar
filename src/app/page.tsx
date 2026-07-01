@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, Clock, MapPin, Phone, ShieldCheck, Star } from "lucide-react";
@@ -10,32 +11,44 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { ServiceCard } from "@/components/ServiceCard";
 import {
   certifications,
-  getFeaturedServices,
-  realizations,
-  services,
-  settings,
-  testimonials
-} from "@/lib/content";
-import { absoluteUrl } from "@/lib/seo";
+  getHomeContent,
+  getServices,
+  getSettings
+} from "@/lib/prismic-content";
+import { absoluteUrl, createMetadata } from "@/lib/seo";
 
-const homeSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Detailing samochodowy Turek",
-  url: absoluteUrl("/"),
-  mainEntity: {
-    "@type": "ItemList",
-    itemListElement: services.slice(0, 8).map((service, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: service.title,
-      url: absoluteUrl(`/oferta/${service.slug}`)
-    }))
-  }
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const home = await getHomeContent();
 
-export default function HomePage() {
-  const featuredServices = getFeaturedServices();
+  return createMetadata({
+    title: home.seoTitle,
+    description: home.seoDescription,
+    path: "/",
+    image: home.heroImage.src
+  });
+}
+
+export default async function HomePage() {
+  const [home, services, settings] = await Promise.all([
+    getHomeContent(),
+    getServices(),
+    getSettings()
+  ]);
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Detailing samochodowy Turek",
+    url: absoluteUrl("/"),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: services.slice(0, 8).map((service, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: service.title,
+        url: absoluteUrl(`/oferta/${service.slug}`)
+      }))
+    }
+  };
 
   return (
     <>
@@ -43,8 +56,8 @@ export default function HomePage() {
 
       <section className="hero">
         <Image
-          src="/assets/oferta-na-glowna-900x400-k80mlh6a.jpg"
-          alt="Aplikacja folii ochronnej PPF na samochodzie"
+          src={home.heroImage.src}
+          alt={home.heroImage.alt}
           fill
           priority
           sizes="100vw"
@@ -52,14 +65,11 @@ export default function HomePage() {
         />
         <div className="hero-overlay" />
         <div className="hero-content">
-          <p className="eyebrow">Detailing samochodowy w Turku</p>
-          <h1>Folia PPF, korekta lakieru i zabezpieczenie auta bez kompromisów.</h1>
-          <p>
-            Sleek Car to studio autokosmetyki, w którym lakier, wnętrze i detale
-            samochodu są traktowane z techniczną dokładnością i spokojem premium.
-          </p>
+          <p className="eyebrow">{home.heroEyebrow}</p>
+          <h1>{home.heroTitle}</h1>
+          <p>{home.heroText}</p>
           <div className="hero-actions">
-            <ButtonLink href="/oferta">Sprawdź ofertę</ButtonLink>
+            <ButtonLink href={home.primaryCtaHref}>{home.primaryCtaLabel}</ButtonLink>
             <a className="button button-secondary" href={settings.phoneHref}>
               <Phone aria-hidden="true" size={18} />
               <span>{settings.phoneDisplay}</span>
@@ -92,7 +102,7 @@ export default function HomePage() {
           description="Na start wyciągamy najmocniejsze usługi na stronę główną, a pełna oferta ma osobne podstrony przygotowane pod SEO."
         />
         <div className="card-grid four">
-          {featuredServices.map((service) => (
+          {home.featuredServices.map((service) => (
             <ServiceCard key={service.slug} service={service} />
           ))}
         </div>
@@ -106,12 +116,8 @@ export default function HomePage() {
       <section className="section split-section">
         <div>
           <p className="eyebrow">O studiu</p>
-          <h2>Setki godzin szkoleń, tysiące aut praktyki i praca na produktach z górnej półki.</h2>
-          <p>
-            Jeżeli szukasz studia, które kompleksowo, terminowo i rzetelnie zajmie
-            się Twoim pojazdem, dobrze trafiłeś. Każdą wycenę poprzedzamy rozmową
-            i oględzinami, żeby zakres prac był dopasowany do realnego stanu auta.
-          </p>
+          <h2>{home.aboutTitle}</h2>
+          <p>{home.aboutText}</p>
           <ul className="check-list">
             <li>
               <CheckCircle2 aria-hidden="true" size={18} />
@@ -130,7 +136,7 @@ export default function HomePage() {
 
         <div className="cert-card">
           <p className="eyebrow">Certyfikowany ekspert</p>
-          <h3>Powłoki ochronne i folie PPF</h3>
+          <h3>{home.certificationsTitle}</h3>
           <div className="cert-grid">
             {certifications.map((certification) => (
               <a href={certification.url} key={certification.name}>
@@ -149,7 +155,7 @@ export default function HomePage() {
           description="Wybrane projekty pokazują zakres prac: od folii PPF, przez korektę lakieru, po detailing wnętrza."
         />
         <div className="card-grid three">
-          {realizations.slice(0, 3).map((realization) => (
+          {home.featuredRealizations.map((realization) => (
             <RealizationCard key={realization.slug} realization={realization} />
           ))}
         </div>
@@ -167,7 +173,7 @@ export default function HomePage() {
           description="Robocze cytaty są przygotowane do podmiany na konkretne opinie wybrane z profilu Google."
         />
         <div className="testimonial-grid">
-          {testimonials.map((testimonial) => (
+          {home.testimonials.map((testimonial) => (
             <figure className="testimonial" key={testimonial.quote}>
               <div className="stars" aria-label={`${testimonial.rating} na 5 gwiazdek`}>
                 {Array.from({ length: testimonial.rating }).map((_, index) => (
@@ -206,10 +212,10 @@ export default function HomePage() {
             Przejdz do kontaktu
           </Link>
         </div>
-        <MapEmbed />
+        <MapEmbed settings={settings} />
       </section>
 
-      <CtaBand />
+      <CtaBand settings={settings} />
     </>
   );
 }

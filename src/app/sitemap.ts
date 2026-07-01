@@ -1,8 +1,13 @@
 import type { MetadataRoute } from "next";
-import { posts, realizations, services } from "@/lib/content";
+import { getPosts, getRealizations, getServices } from "@/lib/prismic-content";
 import { absoluteUrl } from "@/lib/seo";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [posts, realizations, services] = await Promise.all([
+    getPosts(),
+    getRealizations(),
+    getServices()
+  ]);
   const staticRoutes = ["", "/oferta", "/realizacje", "/aktualnosci", "/kontakt"];
   const now = new Date();
 
