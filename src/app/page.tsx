@@ -67,21 +67,21 @@ export default function HomePage() {
           </div>
         </div>
         <div className="hero-panel" aria-label="Najważniejsze informacje">
-          <div>
+          <Link href="#opinie">
             <Star aria-hidden="true" size={18} />
             <strong>5.0 / 5</strong>
-            <span>90 opinii Google</span>
-          </div>
-          <div>
+            <span>91 opinii Google</span>
+          </Link>
+          <Link href="/oferta/folia-ochronna-ppf">
             <ShieldCheck aria-hidden="true" size={18} />
             <strong>PPF</strong>
             <span>Clif Design i STEK</span>
-          </div>
-          <div>
+          </Link>
+          <Link href="#dojazd">
             <MapPin aria-hidden="true" size={18} />
             <strong>Turek</strong>
             <span>{settings.addressStreet}</span>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -160,7 +160,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section testimonials-section">
+      <section className="section testimonials-section" id="opinie">
         <SectionHeader
           eyebrow="Opinie"
           title="5 gwiazdek od klientów w Google"
@@ -181,7 +181,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section location-section">
+      <section className="section location-section" id="dojazd">
         <div className="location-copy">
           <p className="eyebrow">Nasza siedziba</p>
           <h2>Umów oględziny auta w Turku.</h2>
