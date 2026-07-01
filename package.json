@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "slicemachine": "start-slicemachine",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -19,9 +20,11 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@slicemachine/adapter-next": "^0.3.96",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "slice-machine-ui": "^2.21.3",
     "typescript": "latest"
   }
 }

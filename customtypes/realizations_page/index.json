@@ -1,0 +1,24 @@
+{
+  "format": "custom",
+  "id": "realizations_page",
+  "label": "Realizations page",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "title": { "type": "StructuredText", "config": { "label": "Title", "single": "heading1" } },
+      "lead": { "type": "StructuredText", "config": { "label": "Lead", "multi": "paragraph,strong,em,hyperlink" } },
+      "featured_realizations": {
+        "type": "Group",
+        "config": {
+          "label": "Featured realizations",
+          "fields": {
+            "realization": { "type": "Link", "config": { "label": "Realization", "select": "document", "customtypes": ["realization"] } }
+          }
+        }
+      },
+      "seo_title": { "type": "Text", "config": { "label": "SEO title" } },
+      "seo_description": { "type": "Text", "config": { "label": "SEO description" } }
+    }
+  }
+}

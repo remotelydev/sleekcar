@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { PrismicPreview } from "@prismicio/next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
+import { repositoryName } from "@/lib/prismic";
 import { settings } from "@/lib/content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 import "./globals.css";
@@ -58,6 +60,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
   );

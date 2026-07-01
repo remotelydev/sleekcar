@@ -1,0 +1,17 @@
+{
+  "format": "custom",
+  "id": "testimonial",
+  "label": "Testimonial",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "author_name": { "type": "Text", "config": { "label": "Author name" } },
+      "quote": { "type": "Text", "config": { "label": "Quote" } },
+      "rating": { "type": "Number", "config": { "label": "Rating" } },
+      "source": { "type": "Select", "config": { "label": "Source", "options": ["Google", "Facebook", "Inne"], "default_value": "Google" } },
+      "source_url": { "type": "Link", "config": { "label": "Source URL" } },
+      "featured": { "type": "Boolean", "config": { "label": "Featured", "default_value": false } }
+    }
+  }
+}

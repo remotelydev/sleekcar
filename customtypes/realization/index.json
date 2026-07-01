@@ -1,0 +1,52 @@
+{
+  "format": "custom",
+  "id": "realization",
+  "label": "Realization",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": { "type": "UID", "config": { "label": "UID" } },
+      "title": { "type": "Text", "config": { "label": "Title" } },
+      "vehicle": { "type": "Text", "config": { "label": "Vehicle" } },
+      "service_label": { "type": "Text", "config": { "label": "Service label" } },
+      "services": {
+        "type": "Group",
+        "config": {
+          "label": "Services",
+          "fields": {
+            "service": { "type": "Link", "config": { "label": "Service", "select": "document", "customtypes": ["service"] } }
+          }
+        }
+      },
+      "summary": { "type": "Text", "config": { "label": "Summary" } },
+      "body": { "type": "StructuredText", "config": { "label": "Body", "multi": "heading2,heading3,paragraph,strong,em,hyperlink,list-item,o-list-item" } },
+      "cover_image": { "type": "Image", "config": { "label": "Cover image", "constraint": {}, "thumbnails": [] } },
+      "gallery": {
+        "type": "Group",
+        "config": {
+          "label": "Gallery",
+          "fields": {
+            "image": { "type": "Image", "config": { "label": "Image", "constraint": {}, "thumbnails": [] } },
+            "alt": { "type": "Text", "config": { "label": "Alt" } }
+          }
+        }
+      },
+      "before_after": {
+        "type": "Group",
+        "config": {
+          "label": "Before/after",
+          "fields": {
+            "before_image": { "type": "Image", "config": { "label": "Before image", "constraint": {}, "thumbnails": [] } },
+            "after_image": { "type": "Image", "config": { "label": "After image", "constraint": {}, "thumbnails": [] } },
+            "caption": { "type": "Text", "config": { "label": "Caption" } }
+          }
+        }
+      },
+      "published_at": { "type": "Date", "config": { "label": "Published at" } },
+      "featured": { "type": "Boolean", "config": { "label": "Featured", "default_value": false } },
+      "seo_title": { "type": "Text", "config": { "label": "SEO title" } },
+      "seo_description": { "type": "Text", "config": { "label": "SEO description" } }
+    }
+  }
+}

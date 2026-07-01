@@ -1,0 +1,27 @@
+{
+  "format": "custom",
+  "id": "settings",
+  "label": "Settings",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "site_name": { "type": "Text", "config": { "label": "Site name" } },
+      "short_name": { "type": "Text", "config": { "label": "Short name" } },
+      "phone_display": { "type": "Text", "config": { "label": "Phone display" } },
+      "phone_href": { "type": "Text", "config": { "label": "Phone href" } },
+      "email": { "type": "Text", "config": { "label": "Email" } },
+      "address_street": { "type": "Text", "config": { "label": "Address street" } },
+      "address_hint": { "type": "Text", "config": { "label": "Address hint" } },
+      "postal_code": { "type": "Text", "config": { "label": "Postal code" } },
+      "city": { "type": "Text", "config": { "label": "City" } },
+      "opening_hours": { "type": "Text", "config": { "label": "Opening hours" } },
+      "google_maps_embed_url": { "type": "Text", "config": { "label": "Google Maps embed URL" } },
+      "google_maps_url": { "type": "Link", "config": { "label": "Google Maps URL" } },
+      "facebook_url": { "type": "Link", "config": { "label": "Facebook URL" } },
+      "instagram_url": { "type": "Link", "config": { "label": "Instagram URL" } },
+      "default_og_image": { "type": "Image", "config": { "label": "Default OG image", "constraint": {}, "thumbnails": [] } },
+      "seo_title_suffix": { "type": "Text", "config": { "label": "SEO title suffix" } }
+    }
+  }
+}

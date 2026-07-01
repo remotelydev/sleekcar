@@ -1,0 +1,49 @@
+{
+  "format": "custom",
+  "id": "home_page",
+  "label": "Home page",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "hero_eyebrow": { "type": "Text", "config": { "label": "Hero eyebrow" } },
+      "hero_title": { "type": "StructuredText", "config": { "label": "Hero title", "single": "heading1" } },
+      "hero_text": { "type": "StructuredText", "config": { "label": "Hero text", "multi": "paragraph,strong,em,hyperlink" } },
+      "hero_image": { "type": "Image", "config": { "label": "Hero image", "constraint": {}, "thumbnails": [] } },
+      "primary_cta_label": { "type": "Text", "config": { "label": "Primary CTA label" } },
+      "primary_cta_link": { "type": "Link", "config": { "label": "Primary CTA link" } },
+      "featured_services": {
+        "type": "Group",
+        "config": {
+          "label": "Featured services",
+          "fields": {
+            "service": { "type": "Link", "config": { "label": "Service", "select": "document", "customtypes": ["service"] } }
+          }
+        }
+      },
+      "about_title": { "type": "StructuredText", "config": { "label": "About title", "single": "heading2" } },
+      "about_text": { "type": "StructuredText", "config": { "label": "About text", "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item" } },
+      "certifications_title": { "type": "Text", "config": { "label": "Certifications title" } },
+      "featured_realizations": {
+        "type": "Group",
+        "config": {
+          "label": "Featured realizations",
+          "fields": {
+            "realization": { "type": "Link", "config": { "label": "Realization", "select": "document", "customtypes": ["realization"] } }
+          }
+        }
+      },
+      "featured_testimonials": {
+        "type": "Group",
+        "config": {
+          "label": "Featured testimonials",
+          "fields": {
+            "testimonial": { "type": "Link", "config": { "label": "Testimonial", "select": "document", "customtypes": ["testimonial"] } }
+          }
+        }
+      },
+      "seo_title": { "type": "Text", "config": { "label": "SEO title" } },
+      "seo_description": { "type": "Text", "config": { "label": "SEO description" } }
+    }
+  }
+}
