@@ -8,7 +8,7 @@ Obecnie strona korzysta z lokalnego pliku `src/lib/content.ts`, ale jego struktu
 - Strony mają być generowane statycznie przez Next.js.
 - Treści usług, realizacji, wpisów i opinii docelowo pochodzą z Prismic.
 - Assety z katalogu `assets/` zostają lokalnie tylko na czas projektowania. Docelowo zdjęcia trafiają do Media Library w Prismic.
-- Adres trzeba potwierdzić przed publikacją: w briefie pojawiło się `ul. Milewskiego 10E` oraz `ul. Milewskiego 9`. W projekcie roboczo użyłem `ul. Milewskiego 9`.
+- Adres potwierdzony do publikacji: `ul. Milewskiego 10e`.
 - Linki do Facebooka i Instagrama trzeba wkleić w `settings`, gdy Patryk je potwierdzi.
 
 ## Single types

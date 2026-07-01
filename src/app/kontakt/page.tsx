@@ -74,7 +74,7 @@ export default function ContactPage() {
       <section className="section map-section">
         <div>
           <p className="eyebrow">Dojazd</p>
-          <h2>ul. Milewskiego 9, Turek</h2>
+          <h2>ul. Milewskiego 10e, Turek</h2>
         </div>
         <MapEmbed />
       </section>

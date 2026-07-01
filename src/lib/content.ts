@@ -59,15 +59,15 @@ export const settings = {
   phoneDisplay: "665 111 550",
   phoneHref: "tel:+48665111550",
   emailDisplay: "kontakt@sleekcar.pl",
-  addressStreet: "ul. Milewskiego 9",
+  addressStreet: "ul. Milewskiego 10e",
   addressHint: "za budynkiem Inter Cars",
   postalCode: "62-700",
   city: "Turek",
   hours: "Pn - Pt: 9.00 - 17.00",
   mapEmbedUrl:
-    "https://www.google.com/maps?q=ul.%20Milewskiego%209%2C%2062-700%20Turek&output=embed",
+    "https://www.google.com/maps?q=ul.%20Milewskiego%2010e%2C%2062-700%20Turek&output=embed",
   googleMapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=ul.%20Milewskiego%209%2C%2062-700%20Turek",
+    "https://www.google.com/maps/search/?api=1&query=ul.%20Milewskiego%2010e%2C%2062-700%20Turek",
   social: {
     facebook: "#",
     instagram: "#"
