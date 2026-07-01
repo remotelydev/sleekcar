@@ -10,7 +10,9 @@ type SeoInput = {
 
 export function absoluteUrl(path = "") {
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || settings.siteUrl;
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    process.env.URL?.replace(/\/$/, "") ||
+    settings.siteUrl;
 
   if (!path) {
     return siteUrl;
@@ -26,7 +28,9 @@ export function createMetadata({
   image = settings.defaultOgImage
 }: SeoInput): Metadata {
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || settings.siteUrl;
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    process.env.URL?.replace(/\/$/, "") ||
+    settings.siteUrl;
   const url = absoluteUrl(path);
   const fullTitle = title.includes(settings.shortName)
     ? title

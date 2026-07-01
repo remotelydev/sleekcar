@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_PUBLIC_PRISMIC_REPOSITORY_NAME = "sleekcar"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

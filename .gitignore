@@ -14,5 +14,4 @@ tsconfig.tsbuildinfo
 !.env.example
 
 # Legacy assets stay local for now. They will be migrated to Prismic media.
-assets/
-public/assets
+/assets/
