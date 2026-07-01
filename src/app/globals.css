@@ -7,8 +7,10 @@
   --text: #f4f1ea;
   --muted: #b8c0c8;
   --muted-strong: #d7dde4;
-  --accent: #d7b46a;
-  --accent-strong: #f0cf82;
+  --accent: #e7aa22;
+  --accent-strong: #ffd166;
+  --accent-deep: #b97708;
+  --accent-rgb: 231, 170, 34;
   --danger: #e05a4f;
   --success: #73c78b;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
@@ -167,7 +169,7 @@ small {
 
 .phone-cta {
   align-items: center;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent-strong), var(--accent) 54%, var(--accent-deep));
   border-radius: var(--radius);
   color: #111418;
   display: inline-flex;
@@ -179,7 +181,7 @@ small {
 }
 
 .phone-cta:hover {
-  background: var(--accent-strong);
+  background: linear-gradient(135deg, #ffe09a, var(--accent-strong) 52%, var(--accent));
 }
 
 .header-actions {
@@ -226,12 +228,13 @@ small {
 }
 
 .button-primary {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent-strong), var(--accent) 54%, var(--accent-deep));
+  box-shadow: 0 12px 28px rgba(var(--accent-rgb), 0.18);
   color: #111418;
 }
 
 .button-primary:hover {
-  background: var(--accent-strong);
+  background: linear-gradient(135deg, #ffe09a, var(--accent-strong) 52%, var(--accent));
 }
 
 .button-secondary {
@@ -329,7 +332,7 @@ small {
 
 .hero-panel a:hover,
 .hero-panel a:focus-visible {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(var(--accent-rgb), 0.14);
   transform: translateY(-1px);
 }
 
@@ -415,7 +418,7 @@ small {
 }
 
 .image-card:hover {
-  border-color: rgba(215, 180, 106, 0.55);
+  border-color: rgba(var(--accent-rgb), 0.68);
   transform: translateY(-2px);
 }
 
