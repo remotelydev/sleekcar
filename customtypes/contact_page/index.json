@@ -8,6 +8,7 @@
     "Main": {
       "title": { "type": "StructuredText", "config": { "label": "Title", "single": "heading1" } },
       "lead": { "type": "StructuredText", "config": { "label": "Lead", "multi": "paragraph,strong,em,hyperlink" } },
+      "hero_image": { "type": "Image", "config": { "label": "Hero image", "constraint": {}, "thumbnails": [] } },
       "form_title": { "type": "Text", "config": { "label": "Form title" } },
       "map_title": { "type": "Text", "config": { "label": "Map title" } },
       "seo_title": { "type": "Text", "config": { "label": "SEO title" } },

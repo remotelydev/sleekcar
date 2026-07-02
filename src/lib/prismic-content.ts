@@ -27,6 +27,7 @@ type Certification = (typeof fallbackCertifications)[number];
 export type PageContent = {
   title: string;
   lead: string;
+  heroImage: ImageAsset;
   seoTitle: string;
   seoDescription: string;
 };
@@ -92,36 +93,52 @@ const fallbackHome: HomeContent = {
 };
 
 const fallbackOfferPage: PageContent = {
-  title: "Detailing, zabezpieczenie lakieru i usługi ochronne dla auta.",
+  title: "Oferta detailingu samochodowego w Turku",
   lead:
-    "Każda usługa ma osobną podstronę, opis korzyści, przebieg prac i miejsce na ceny, FAQ oraz galerie. To dobra baza pod Prismic i lokalne SEO.",
+    "Dobierz zakres prac do auta i sposobu użytkowania: od czyszczenia wnętrza, przez korektę lakieru, po folię PPF i trwałe zabezpieczenia.",
+  heroImage: {
+    src: "/assets/911%20turbo%20s/1_40-l10ntz06.jpg",
+    alt: "Porsche 911 Turbo S po zabezpieczeniu w Sleek Car"
+  },
   seoTitle: "Oferta detailingu samochodowego w Turku",
   seoDescription:
     "Folia PPF, zabezpieczenie lakieru, korekta lakieru, przyciemnianie szyb, czyszczenie wnętrza i pozostałe usługi Sleek Car w Turku."
 };
 
 const fallbackRealizationsPage: PageContent = {
-  title: "Efekty prac, które pomagają klientom podjąć decyzję.",
+  title: "Realizacje Sleek Car",
   lead:
-    "Zamiast przypadkowej galerii: każde auto może mieć opis zakresu, zdjęcie główne, galerię i link do usługi, którą sprzedaje.",
+    "Zobacz wybrane auta po zabezpieczeniu lakieru, korekcie, folii PPF i detailingu wnętrza. Każda realizacja pokazuje konkretny zakres prac.",
+  heroImage: {
+    src: "/assets/lambo/1-l10o07zj.jpg",
+    alt: "Lamborghini po detailingu wnętrza i pielęgnacji"
+  },
   seoTitle: "Realizacje detailingu i folii PPF",
   seoDescription:
     "Wybrane realizacje Sleek Car: folia PPF, korekta lakieru, detailing wnętrza i zabezpieczenie samochodów w Turku."
 };
 
 const fallbackNewsPage: PageContent = {
-  title: "Poradniki, kulisy pracy i świeże realizacje ze studia.",
+  title: "Aktualności, poradniki i vlog",
   lead:
-    "Ta sekcja jest gotowa na wpisy poradnikowe, krótkie aktualności i odcinki vloga osadzane z YouTube albo Instagrama.",
+    "Praktyczne wskazówki o pielęgnacji auta, kulisy pracy studia i krótkie materiały o folii PPF, korekcie lakieru oraz zabezpieczeniach.",
+  heroImage: {
+    src: "/assets/m3/M3-11-of-12-lbfchvmu.jpg",
+    alt: "BMW M3 po pracach detailingowych"
+  },
   seoTitle: "Aktualności, poradniki i vlog detailingowy",
   seoDescription:
     "Poradniki o folii PPF, zabezpieczeniu lakieru, korekcie i kulisach pracy studia detailingowego Sleek Car w Turku."
 };
 
 const fallbackContactPage: ContactPageContent = {
-  title: "Umów oględziny auta albo zapytaj o konkretną usługę.",
+  title: "Kontakt ze studiem Sleek Car",
   lead:
-    "Najdokładniejszą wycenę przygotujemy po rozmowie i obejrzeniu samochodu. Możesz zadzwonić, wysłać formularz albo podjechać do studia w Turku.",
+    "Umów oględziny auta, zapytaj o usługę albo podeślij krótki opis samochodu. Najdokładniejszą wycenę przygotujemy po rozmowie i obejrzeniu lakieru.",
+  heroImage: {
+    src: "/assets/rs6/1_22-l10nhkum.jpg",
+    alt: "Audi RS6 po korekcie i zabezpieczeniu lakieru"
+  },
   formTitle: "Napisz wiadomość",
   mapTitle: "ul. Milewskiego 10e, Turek",
   seoTitle: "Kontakt",
@@ -208,6 +225,29 @@ function group(value: unknown) {
 
 function nonEmpty<T>(value: T[], fallback: T[]) {
   return value.length > 0 ? value : fallback;
+}
+
+function replaceLegacyPageText(value: string, fallback: string) {
+  const replacements: Record<string, string> = {
+    "Detailing, zabezpieczenie lakieru i usługi ochronne dla auta.":
+      fallbackOfferPage.title,
+    "Każda usługa ma osobną podstronę, opis korzyści, przebieg prac i miejsce na ceny, FAQ oraz galerie. To dobra baza pod Prismic i lokalne SEO.":
+      fallbackOfferPage.lead,
+    "Efekty prac, które pomagają klientom podjąć decyzję.":
+      fallbackRealizationsPage.title,
+    "Zamiast przypadkowej galerii: każde auto może mieć opis zakresu, zdjęcie główne, galerię i link do usługi, którą sprzedaje.":
+      fallbackRealizationsPage.lead,
+    "Poradniki, kulisy pracy i świeże realizacje ze studia.":
+      fallbackNewsPage.title,
+    "Ta sekcja jest gotowa na wpisy poradnikowe, krótkie aktualności i odcinki vloga osadzane z YouTube albo Instagrama.":
+      fallbackNewsPage.lead,
+    "Umów oględziny auta albo zapytaj o konkretną usługę.":
+      fallbackContactPage.title,
+    "Najdokładniejszą wycenę przygotujemy po rozmowie i obejrzeniu samochodu. Możesz zadzwonić, wysłać formularz albo podjechać do studia w Turku.":
+      fallbackContactPage.lead
+  };
+
+  return replacements[value] || value || fallback;
 }
 
 function linkedUid(value: unknown) {
@@ -366,10 +406,13 @@ function pageContentFromDocument(
   fallback: PageContent
 ): PageContent {
   const data = document.data;
+  const title = richText(data.title, fallback.title);
+  const lead = richText(data.lead, fallback.lead);
 
   return {
-    title: richText(data.title, fallback.title),
-    lead: richText(data.lead, fallback.lead),
+    title: replaceLegacyPageText(title, fallback.title),
+    lead: replaceLegacyPageText(lead, fallback.lead),
+    heroImage: image(data.hero_image, fallback.heroImage),
     seoTitle: text(data.seo_title, fallback.seoTitle),
     seoDescription: text(data.seo_description, fallback.seoDescription)
   };

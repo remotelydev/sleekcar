@@ -8,6 +8,7 @@
     "Main": {
       "title": { "type": "StructuredText", "config": { "label": "Title", "single": "heading1" } },
       "lead": { "type": "StructuredText", "config": { "label": "Lead", "multi": "paragraph,strong,em,hyperlink" } },
+      "hero_image": { "type": "Image", "config": { "label": "Hero image", "constraint": {}, "thumbnails": [] } },
       "featured_realizations": {
         "type": "Group",
         "config": {

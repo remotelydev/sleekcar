@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
@@ -37,11 +38,22 @@ export default async function NewsPage() {
   return (
     <>
       <JsonLd data={newsSchema} />
-      <section className="page-hero compact">
-        <Breadcrumbs items={[{ label: "Aktualności" }]} />
-        <p className="eyebrow">Aktualności i vlog</p>
-        <h1>{page.title}</h1>
-        <p>{page.lead}</p>
+      <section className="page-hero compact visual">
+        <Image
+          src={page.heroImage.src}
+          alt={page.heroImage.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="page-hero-image"
+        />
+        <div className="page-hero-overlay" />
+        <div className="page-hero-content">
+          <Breadcrumbs items={[{ label: "Aktualności" }]} />
+          <p className="eyebrow">Aktualności i vlog</p>
+          <h1>{page.title}</h1>
+          <p>{page.lead}</p>
+        </div>
       </section>
 
       <section className="section">
