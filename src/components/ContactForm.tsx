@@ -12,15 +12,21 @@ export function ContactForm() {
     setState("sending");
 
     const formData = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = new URLSearchParams();
+
+    formData.forEach((value, key) => {
+      if (typeof value === "string") {
+        payload.append(key, value);
+      }
+    });
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: JSON.stringify(payload)
+        body: payload.toString()
       });
 
       if (!response.ok) {
@@ -35,7 +41,15 @@ export function ContactForm() {
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
+    <form
+      className="contact-form"
+      data-netlify="true"
+      method="POST"
+      name="contact"
+      onSubmit={handleSubmit}
+    >
+      <input name="form-name" type="hidden" value="contact" />
+
       <label>
         <span>Imię i nazwisko</span>
         <input name="name" autoComplete="name" required />
@@ -65,7 +79,7 @@ export function ContactForm() {
       ) : null}
       {state === "error" ? (
         <p className="form-status error">
-          Formularz nie jest jeszcze skonfigurowany. Najszybciej bedzie zadzwonic.
+          Nie udało się wysłać wiadomości. Najszybciej będzie zadzwonić.
         </p>
       ) : null}
     </form>

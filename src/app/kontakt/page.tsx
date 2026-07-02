@@ -40,7 +40,7 @@ export default async function ContactPage() {
       <section className="section contact-layout">
         <div className="contact-card">
           <p className="eyebrow">Dane studia</p>
-          <h2>{settings.siteName}</h2>
+          <h2>SleekCar autokosmetyka</h2>
           <div className="contact-list large">
             <a href={settings.phoneHref}>
               <Phone aria-hidden="true" size={20} />
@@ -67,8 +67,6 @@ export default async function ContactPage() {
         </div>
 
         <div className="form-panel">
-          <p className="eyebrow">Formularz</p>
-          <h2>{page.formTitle}</h2>
           <ContactForm />
         </div>
       </section>
