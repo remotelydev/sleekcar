@@ -21,9 +21,31 @@
           }
         }
       },
+      "about_eyebrow": { "type": "Text", "config": { "label": "About eyebrow" } },
       "about_title": { "type": "StructuredText", "config": { "label": "About title", "single": "heading2" } },
       "about_text": { "type": "StructuredText", "config": { "label": "About text", "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item" } },
+      "about_points": {
+        "type": "Group",
+        "config": {
+          "label": "About points",
+          "fields": {
+            "point": { "type": "Text", "config": { "label": "Point" } }
+          }
+        }
+      },
+      "certifications_eyebrow": { "type": "Text", "config": { "label": "Certifications eyebrow" } },
       "certifications_title": { "type": "Text", "config": { "label": "Certifications title" } },
+      "certifications": {
+        "type": "Group",
+        "config": {
+          "label": "Certifications",
+          "fields": {
+            "name": { "type": "Text", "config": { "label": "Name" } },
+            "url": { "type": "Link", "config": { "label": "URL" } },
+            "label": { "type": "Text", "config": { "label": "Label" } }
+          }
+        }
+      },
       "featured_realizations": {
         "type": "Group",
         "config": {

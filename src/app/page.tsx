@@ -9,12 +9,7 @@ import { MapEmbed } from "@/components/MapEmbed";
 import { RealizationCard } from "@/components/RealizationCard";
 import { SectionHeader } from "@/components/SectionHeader";
 import { ServiceCard } from "@/components/ServiceCard";
-import {
-  certifications,
-  getHomeContent,
-  getServices,
-  getSettings
-} from "@/lib/prismic-content";
+import { getHomeContent, getServices, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -115,31 +110,30 @@ export default async function HomePage() {
 
       <section className="section split-section">
         <div>
-          <p className="eyebrow">O studiu</p>
+          <p className="eyebrow">{home.aboutEyebrow}</p>
           <h2>{home.aboutTitle}</h2>
           <p>{home.aboutText}</p>
           <ul className="check-list">
-            <li>
-              <CheckCircle2 aria-hidden="true" size={18} />
-              Folie ochronne PPF, powłoki, korekty i detailing wnętrza.
-            </li>
-            <li>
-              <CheckCircle2 aria-hidden="true" size={18} />
-              Naprawa rys, odprysków i wgnieceń bez ponownego lakierowania.
-            </li>
-            <li>
-              <CheckCircle2 aria-hidden="true" size={18} />
-              Zalecany kontakt telefoniczny i oględziny auta przed wyceną.
-            </li>
+            {home.aboutPoints.map((point) => (
+              <li key={point}>
+                <CheckCircle2 aria-hidden="true" size={18} />
+                {point}
+              </li>
+            ))}
           </ul>
         </div>
 
         <div className="cert-card">
-          <p className="eyebrow">Certyfikowany ekspert</p>
+          <p className="eyebrow">{home.certificationsEyebrow}</p>
           <h3>{home.certificationsTitle}</h3>
           <div className="cert-grid">
-            {certifications.map((certification) => (
-              <a href={certification.url} key={certification.name}>
+            {home.certifications.map((certification) => (
+              <a
+                href={certification.url}
+                key={certification.name}
+                rel="noreferrer"
+                target="_blank"
+              >
                 <span>{certification.name}</span>
                 <small>{certification.label}</small>
               </a>

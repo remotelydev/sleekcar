@@ -55,8 +55,8 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="pl">
-      <body>
+    <html lang="pl" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <JsonLd data={localBusinessSchema} />
         <Header settings={settings} />
         <main>{children}</main>

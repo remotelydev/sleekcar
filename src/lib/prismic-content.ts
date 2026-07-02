@@ -22,6 +22,7 @@ type PrismicDocument = {
 
 type Settings = typeof fallbackSettings;
 type Testimonial = (typeof fallbackTestimonials)[number];
+type Certification = (typeof fallbackCertifications)[number];
 
 export type PageContent = {
   title: string;
@@ -42,9 +43,13 @@ export type HomeContent = {
   heroImage: ImageAsset;
   primaryCtaLabel: string;
   primaryCtaHref: string;
+  aboutEyebrow: string;
   aboutTitle: string;
   aboutText: string;
+  aboutPoints: string[];
+  certificationsEyebrow: string;
   certificationsTitle: string;
+  certifications: Certification[];
   featuredServices: Service[];
   featuredRealizations: Realization[];
   testimonials: Testimonial[];
@@ -63,11 +68,19 @@ const fallbackHome: HomeContent = {
   },
   primaryCtaLabel: "Sprawdź ofertę",
   primaryCtaHref: "/oferta",
+  aboutEyebrow: "O studiu",
   aboutTitle:
     "Setki godzin szkoleń, tysiące aut praktyki i praca na produktach z górnej półki.",
   aboutText:
     "Jeżeli szukasz studia, które kompleksowo, terminowo i rzetelnie zajmie się Twoim pojazdem, dobrze trafiłeś. Każdą wycenę poprzedzamy rozmową i oględzinami, żeby zakres prac był dopasowany do realnego stanu auta.",
+  aboutPoints: [
+    "Folie ochronne PPF, powłoki, korekty i detailing wnętrza.",
+    "Naprawa rys, odprysków i wgnieceń bez ponownego lakierowania.",
+    "Zalecany kontakt telefoniczny i oględziny auta przed wyceną."
+  ],
+  certificationsEyebrow: "Certyfikowany ekspert",
   certificationsTitle: "Powłoki ochronne i folie PPF",
+  certifications: fallbackCertifications,
   featuredServices: fallbackServices.filter((service) =>
     featuredServiceSlugs.includes(service.slug)
   ),
@@ -521,9 +534,28 @@ export async function getHomeContent(): Promise<HomeContent> {
       primaryCtaHref: linkHref(data.primary_cta_link, fallbackHome.primaryCtaHref),
       aboutTitle: richText(data.about_title, fallbackHome.aboutTitle),
       aboutText: richText(data.about_text, fallbackHome.aboutText),
+      aboutEyebrow: text(data.about_eyebrow, fallbackHome.aboutEyebrow),
+      aboutPoints: nonEmpty(
+        group(data.about_points).map((item) => text(item.point)).filter(Boolean),
+        fallbackHome.aboutPoints
+      ),
+      certificationsEyebrow: text(
+        data.certifications_eyebrow,
+        fallbackHome.certificationsEyebrow
+      ),
       certificationsTitle: text(
         data.certifications_title,
         fallbackHome.certificationsTitle
+      ),
+      certifications: nonEmpty(
+        group(data.certifications)
+          .map((item) => ({
+            name: text(item.name),
+            url: linkHref(item.url, "#"),
+            label: text(item.label)
+          }))
+          .filter((item) => item.name && item.label),
+        fallbackHome.certifications
       ),
       featuredServices:
         featuredServiceUids.length > 0
