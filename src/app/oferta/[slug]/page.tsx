@@ -94,7 +94,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <div className="detail-hero-copy">
           <Breadcrumbs items={[{ label: "Oferta", href: "/oferta" }, { label: service.title }]} />
           <p className="eyebrow">{service.eyebrow}</p>
-          <h1>{service.title} w Turku</h1>
+          <h1>{service.title}</h1>
           <p>{service.lead}</p>
         </div>
         <div className="detail-hero-media">
