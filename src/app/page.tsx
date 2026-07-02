@@ -67,7 +67,7 @@ export default async function HomePage() {
             <ButtonLink href={home.primaryCtaHref}>{home.primaryCtaLabel}</ButtonLink>
             <a className="button button-secondary" href={settings.phoneHref}>
               <Phone aria-hidden="true" size={18} />
-              <span>{settings.phoneDisplay}</span>
+              <span className="phone-number">{settings.phoneDisplay}</span>
             </a>
           </div>
         </div>
@@ -195,7 +195,7 @@ export default async function HomePage() {
             </a>
             <a href={settings.phoneHref}>
               <Phone aria-hidden="true" size={20} />
-              <span>{settings.phoneDisplay}</span>
+              <span className="phone-number">{settings.phoneDisplay}</span>
             </a>
             <span>
               <Clock aria-hidden="true" size={20} />

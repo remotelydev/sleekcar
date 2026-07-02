@@ -23,7 +23,7 @@ export function CtaBand({
       <div className="cta-actions">
         <a className="button button-primary" href={settings.phoneHref}>
           <Phone aria-hidden="true" size={18} />
-          <span>{settings.phoneDisplay}</span>
+          <span className="phone-number">{settings.phoneDisplay}</span>
         </a>
         <ButtonLink href="/kontakt" variant="secondary">
           Formularz kontaktowy

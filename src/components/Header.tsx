@@ -38,7 +38,7 @@ export function Header({ settings = fallbackSettings }: HeaderProps) {
       <div className="header-actions">
         <a className="phone-cta" href={settings.phoneHref}>
           <Phone aria-hidden="true" size={18} />
-          <span>{settings.phoneDisplay}</span>
+          <span className="phone-number">{settings.phoneDisplay}</span>
         </a>
         <button
           aria-expanded={isMenuOpen}

@@ -56,7 +56,7 @@ export default async function ContactPage() {
           <div className="contact-list large">
             <a href={settings.phoneHref}>
               <Phone aria-hidden="true" size={20} />
-              <span>{settings.phoneDisplay}</span>
+              <span className="phone-number">{settings.phoneDisplay}</span>
             </a>
             <a href={`mailto:${settings.emailDisplay}`}>
               <Mail aria-hidden="true" size={20} />
@@ -65,7 +65,7 @@ export default async function ContactPage() {
             <a href={settings.googleMapsUrl} target="_blank" rel="noreferrer">
               <MapPin aria-hidden="true" size={20} />
               <span>
-                {settings.addressStreet}
+                <span className="address-line">{settings.addressStreet}</span>
                 <small>
                   {settings.addressHint}, {settings.postalCode} {settings.city}
                 </small>

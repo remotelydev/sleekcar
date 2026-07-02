@@ -33,7 +33,7 @@ export function Footer({ settings = fallbackSettings }: FooterProps) {
           <div className="contact-list">
             <a href={settings.phoneHref}>
               <Phone aria-hidden="true" size={17} />
-              {settings.phoneDisplay}
+              <span className="phone-number">{settings.phoneDisplay}</span>
             </a>
             <a href={settings.googleMapsUrl} target="_blank" rel="noreferrer">
               <MapPin aria-hidden="true" size={17} />
