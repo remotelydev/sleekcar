@@ -11,6 +11,35 @@ type PostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+function getVideoEmbedUrl(url: string) {
+  try {
+    const parsedUrl = new URL(url);
+    const hostname = parsedUrl.hostname.replace(/^www\./, "");
+
+    if (hostname === "youtube.com" || hostname === "m.youtube.com") {
+      const pathParts = parsedUrl.pathname.split("/").filter(Boolean);
+      const videoId =
+        parsedUrl.searchParams.get("v") ||
+        (pathParts[0] === "shorts" || pathParts[0] === "embed" ? pathParts[1] : "");
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    }
+
+    if (hostname === "youtu.be") {
+      const videoId = parsedUrl.pathname.split("/").filter(Boolean)[0];
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    }
+
+    if (hostname === "vimeo.com") {
+      const videoId = parsedUrl.pathname.split("/").filter(Boolean)[0];
+      return videoId ? `https://player.vimeo.com/video/${videoId}` : url;
+    }
+  } catch {
+    return url;
+  }
+
+  return url;
+}
+
 export async function generateStaticParams() {
   const posts = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
@@ -84,6 +113,17 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <section className="section article-layout">
           <div className="article-copy">
+            {post.videoUrl ? (
+              <div className="video-embed">
+                <iframe
+                  src={getVideoEmbedUrl(post.videoUrl)}
+                  title={post.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            ) : null}
             {post.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -99,6 +139,14 @@ export default async function PostPage({ params }: PostPageProps) {
               <span>Czas</span>
               <strong>{post.readingTime}</strong>
             </div>
+            {post.videoUrl ? (
+              <div className="price-row">
+                <span>Video</span>
+                <a href={post.videoUrl} target="_blank" rel="noreferrer">
+                  Otwórz film
+                </a>
+              </div>
+            ) : null}
           </aside>
         </section>
       </article>

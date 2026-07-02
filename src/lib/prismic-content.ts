@@ -304,6 +304,7 @@ function postFromDocument(document: PrismicDocument, fallback?: Post): Post {
     publishedAt: text(data.published_at, fallback?.publishedAt),
     readingTime: text(data.reading_time, fallback?.readingTime),
     coverImage: image(data.cover_image, fallback?.coverImage || fallbackPosts[0].coverImage),
+    videoUrl: linkHref(data.video_url, fallback?.videoUrl || "") || undefined,
     body: richTextParagraphs(data.body, fallback?.body || [])
   };
 }
@@ -318,6 +319,17 @@ function testimonialFromDocument(document: PrismicDocument, fallback?: Testimoni
       typeof data.rating === "number" && data.rating > 0
         ? Math.min(data.rating, 5)
         : fallback?.rating || 5
+  };
+}
+
+function testimonialFromGroupItem(item: Record<string, unknown>): Testimonial {
+  return {
+    author: text(item.author_name),
+    quote: text(item.quote),
+    rating:
+      typeof item.rating === "number" && item.rating > 0
+        ? Math.min(item.rating, 5)
+        : 5
   };
 }
 
@@ -524,6 +536,9 @@ export async function getHomeContent(): Promise<HomeContent> {
     const featuredRealizationUids = group(data.featured_realizations)
       .map((item) => linkedUid(item.realization))
       .filter(Boolean);
+    const featuredTestimonials = group(data.featured_testimonials)
+      .map((item) => testimonialFromGroupItem(item))
+      .filter((testimonial) => testimonial.author && testimonial.quote);
 
     return {
       heroEyebrow: text(data.hero_eyebrow, fallbackHome.heroEyebrow),
@@ -571,7 +586,7 @@ export async function getHomeContent(): Promise<HomeContent> {
               )
               .filter((realization): realization is Realization => Boolean(realization))
           : realizations.slice(0, 3),
-      testimonials,
+      testimonials: nonEmpty(featuredTestimonials, testimonials),
       seoTitle: text(data.seo_title, fallbackHome.seoTitle),
       seoDescription: text(data.seo_description, fallbackHome.seoDescription)
     };

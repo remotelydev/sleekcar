@@ -46,6 +46,7 @@ export type Post = {
   publishedAt: string;
   readingTime: string;
   coverImage: ImageAsset;
+  videoUrl?: string;
   body: string[];
 };
 

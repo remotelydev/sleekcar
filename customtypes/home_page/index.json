@@ -60,7 +60,9 @@
         "config": {
           "label": "Featured testimonials",
           "fields": {
-            "testimonial": { "type": "Link", "config": { "label": "Testimonial", "select": "document", "customtypes": ["testimonial"] } }
+            "author_name": { "type": "Text", "config": { "label": "Author name" } },
+            "quote": { "type": "Text", "config": { "label": "Quote" } },
+            "rating": { "type": "Number", "config": { "label": "Rating" } }
           }
         }
       },

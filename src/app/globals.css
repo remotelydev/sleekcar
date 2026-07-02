@@ -641,6 +641,22 @@ small {
   max-width: 48rem;
 }
 
+.video-embed {
+  aspect-ratio: 16 / 9;
+  background: #0d1013;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.video-embed iframe {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .price-row {
   border-top: 1px solid rgba(255, 255, 255, 0.09);
   display: grid;
