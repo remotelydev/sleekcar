@@ -8,7 +8,7 @@ Obecnie strona korzysta z lokalnego pliku `src/lib/content.ts`, ale jego struktu
 - Strony mają być generowane statycznie przez Next.js.
 - Treści usług, realizacji, wpisów i opinii docelowo pochodzą z Prismic.
 - Assety z katalogu `assets/` zostają lokalnie tylko na czas projektowania. Docelowo zdjęcia trafiają do Media Library w Prismic.
-- Adres potwierdzony do publikacji: `ul. Milewskiego 10e`.
+- Adres potwierdzony do publikacji: `ul. Milewskiego 10E`.
 - Linki do Facebooka i Instagrama trzeba wkleić w `settings`, gdy Patryk je potwierdzi.
 
 ## Single types
@@ -25,7 +25,7 @@ Globalne dane firmy używane w headerze, footerze, mapie, formularzu i schema.or
 | `phone_href` | Key Text | `tel:+48665111550` |
 | `email` | Key Text | Adres do formularza |
 | `address_street` | Key Text | Po potwierdzeniu numeru |
-| `address_hint` | Key Text | Np. `za budynkiem Inter Cars` |
+| `address_hint` | Key Text | Opcjonalny dopisek do adresu |
 | `postal_code` | Key Text | `62-700` |
 | `city` | Key Text | `Turek` |
 | `opening_hours` | Key Text | `Pn - Pt: 9.00 - 17.00` |

@@ -140,7 +140,7 @@ const fallbackContactPage: ContactPageContent = {
     alt: "Audi RS6 po korekcie i zabezpieczeniu lakieru"
   },
   formTitle: "Napisz wiadomość",
-  mapTitle: "ul. Milewskiego 10e, Turek",
+  mapTitle: "ul. Milewskiego 10E, Turek",
   seoTitle: "Kontakt",
   seoDescription:
     "Skontaktuj się ze Sleek Car Autokosmetyka w Turku. Telefon, adres, godziny otwarcia, formularz i mapa dojazdu."
@@ -373,6 +373,10 @@ function testimonialFromGroupItem(item: Record<string, unknown>): Testimonial {
   };
 }
 
+function normalizePublishedAddress(value: string) {
+  return value.replace(/\b10e\b/gi, "10E").replace(/10e(?=%2C)/gi, "10E");
+}
+
 function settingsFromDocument(document: PrismicDocument): Settings {
   const data = document.data;
 
@@ -383,13 +387,19 @@ function settingsFromDocument(document: PrismicDocument): Settings {
     phoneDisplay: text(data.phone_display, fallbackSettings.phoneDisplay),
     phoneHref: text(data.phone_href, fallbackSettings.phoneHref),
     emailDisplay: text(data.email, fallbackSettings.emailDisplay),
-    addressStreet: text(data.address_street, fallbackSettings.addressStreet),
-    addressHint: text(data.address_hint, fallbackSettings.addressHint),
+    addressStreet: normalizePublishedAddress(
+      text(data.address_street, fallbackSettings.addressStreet)
+    ),
+    addressHint: "",
     postalCode: text(data.postal_code, fallbackSettings.postalCode),
     city: text(data.city, fallbackSettings.city),
     hours: text(data.opening_hours, fallbackSettings.hours),
-    mapEmbedUrl: text(data.google_maps_embed_url, fallbackSettings.mapEmbedUrl),
-    googleMapsUrl: linkHref(data.google_maps_url, fallbackSettings.googleMapsUrl),
+    mapEmbedUrl: normalizePublishedAddress(
+      text(data.google_maps_embed_url, fallbackSettings.mapEmbedUrl)
+    ),
+    googleMapsUrl: normalizePublishedAddress(
+      linkHref(data.google_maps_url, fallbackSettings.googleMapsUrl)
+    ),
     defaultOgImage: image(data.default_og_image, {
       src: fallbackSettings.defaultOgImage,
       alt: fallbackSettings.siteName

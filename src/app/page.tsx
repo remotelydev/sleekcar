@@ -190,7 +190,6 @@ export default async function HomePage() {
               <MapPin aria-hidden="true" size={20} />
               <span>
                 {settings.addressStreet}, {settings.postalCode} {settings.city}
-                <small>{settings.addressHint}</small>
               </span>
             </a>
             <a href={settings.phoneHref}>

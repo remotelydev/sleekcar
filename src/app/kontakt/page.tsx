@@ -67,7 +67,7 @@ export default async function ContactPage() {
               <span>
                 <span className="address-line">{settings.addressStreet}</span>
                 <small>
-                  {settings.addressHint}, {settings.postalCode} {settings.city}
+                  {settings.postalCode} {settings.city}
                 </small>
               </span>
             </a>

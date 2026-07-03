@@ -26,6 +26,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "slice-machine-ui": "^2.21.3",
+    "tailwindcss": "^4.3.2",
     "typescript": "latest"
   }
 }

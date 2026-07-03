@@ -1,17 +1,18 @@
 :root {
-  --bg: #111418;
-  --bg-soft: #15191e;
-  --surface: #1b2026;
-  --surface-strong: #222832;
-  --line: #303640;
-  --text: #f4f1ea;
-  --muted: #b8c0c8;
-  --muted-strong: #d7dde4;
-  --accent: #e7aa22;
-  --accent-strong: #ffd166;
-  --accent-rgb: 231, 170, 34;
-  --danger: #e05a4f;
-  --success: #73c78b;
+  --bg: #0a0a0a;
+  --bg-soft: #18181b;
+  --surface: #18181b;
+  --surface-strong: #27272a;
+  --line: #3f3f46;
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --muted-strong: #e2e8f0;
+  --accent: #b91c1c;
+  --accent-strong: #dc2626;
+  --accent-rgb: 185, 28, 28;
+  --star: #fbbf24;
+  --danger: #ef4444;
+  --success: #22c55e;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
   --radius: 8px;
   --max: 1180px;
@@ -28,7 +29,7 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(180deg, rgba(17, 20, 24, 0.7), #111418 38rem),
+    linear-gradient(180deg, rgba(24, 24, 27, 0.7), #0a0a0a 38rem),
     var(--bg);
   color: var(--text);
   font-family:
@@ -39,7 +40,7 @@ body {
 
 body::selection {
   background: var(--accent);
-  color: #111418;
+  color: #ffffff;
 }
 
 a {
@@ -110,7 +111,7 @@ small {
 
 .site-header {
   align-items: center;
-  background: rgba(17, 20, 24, 0.86);
+  background: rgba(39, 39, 42, 0.92);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -136,7 +137,7 @@ small {
 }
 
 .site-nav {
-  background: rgba(17, 20, 24, 0.98);
+  background: rgba(39, 39, 42, 0.98);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: none;
   flex-direction: column;
@@ -172,7 +173,7 @@ small {
   align-items: center;
   background: var(--accent);
   border-radius: var(--radius);
-  color: #111418;
+  color: #ffffff;
   display: inline-flex;
   font-weight: 800;
   gap: 0.45rem;
@@ -235,7 +236,7 @@ small {
 .button-primary {
   background: var(--accent);
   box-shadow: 0 12px 28px rgba(var(--accent-rgb), 0.18);
-  color: #111418;
+  color: #ffffff;
 }
 
 .button-primary:hover {
@@ -273,8 +274,8 @@ small {
 
 .hero-overlay {
   background:
-    linear-gradient(90deg, rgba(17, 20, 24, 0.95), rgba(17, 20, 24, 0.66) 44%, rgba(17, 20, 24, 0.24)),
-    linear-gradient(180deg, rgba(17, 20, 24, 0.14), #111418 94%);
+    linear-gradient(90deg, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.66) 44%, rgba(10, 10, 10, 0.24)),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.14), #0a0a0a 94%);
   inset: 0;
   position: absolute;
   z-index: -2;
@@ -447,7 +448,7 @@ small {
 
 .image-card-media {
   aspect-ratio: 4 / 3;
-  background: #0d1013;
+  background: #09090b;
   overflow: hidden;
   position: relative;
 }
@@ -580,7 +581,7 @@ small {
 }
 
 .stars {
-  color: var(--accent);
+  color: var(--star);
   display: flex;
   gap: 0.25rem;
   margin-bottom: 1rem;
@@ -626,8 +627,8 @@ small {
 
 .page-hero-overlay {
   background:
-    linear-gradient(90deg, rgba(17, 20, 24, 0.96), rgba(17, 20, 24, 0.72) 42%, rgba(17, 20, 24, 0.18)),
-    linear-gradient(180deg, rgba(17, 20, 24, 0.08), #111418 96%);
+    linear-gradient(90deg, rgba(10, 10, 10, 0.96), rgba(10, 10, 10, 0.72) 42%, rgba(10, 10, 10, 0.18)),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.08), #0a0a0a 96%);
   inset: 0;
   position: absolute;
   z-index: -2;
@@ -685,7 +686,7 @@ small {
 
 .detail-hero-media {
   aspect-ratio: 4 / 3;
-  background: #0d1013;
+  background: #09090b;
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
@@ -698,7 +699,7 @@ small {
 
 .video-embed {
   aspect-ratio: 16 / 9;
-  background: #0d1013;
+  background: #09090b;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
   margin-bottom: 1.5rem;
@@ -782,7 +783,7 @@ small {
 
 .gallery-item {
   aspect-ratio: 4 / 3;
-  background: #0d1013;
+  background: #09090b;
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
@@ -874,12 +875,12 @@ small {
 }
 
 .form-status.success {
-  background: rgba(115, 199, 139, 0.13);
+  background: rgba(34, 197, 94, 0.13);
   color: var(--success);
 }
 
 .form-status.error {
-  background: rgba(224, 90, 79, 0.13);
+  background: rgba(239, 68, 68, 0.13);
   color: var(--danger);
 }
 
