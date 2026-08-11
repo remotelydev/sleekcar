@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
   }
 
   revalidateTag("prismic", "max");
+  revalidatePath("/", "layout");
 
   return NextResponse.json({ revalidated: true, now: Date.now() });
 }
