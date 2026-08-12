@@ -8,10 +8,11 @@ export function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const form = event.currentTarget;
     event.preventDefault();
     setState("sending");
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const payload = new URLSearchParams();
 
     formData.forEach((value, key) => {
@@ -21,7 +22,7 @@ export function ContactForm() {
     });
 
     try {
-      const response = await fetch("/netlify-forms.html", {
+      const response = await fetch("/", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -33,7 +34,7 @@ export function ContactForm() {
         throw new Error("Contact form request failed");
       }
 
-      event.currentTarget.reset();
+      form.reset();
       setState("sent");
     } catch {
       setState("error");
@@ -43,7 +44,7 @@ export function ContactForm() {
   return (
     <form
       className="contact-form"
-      action="/netlify-forms.html"
+      action="/"
       data-netlify="true"
       method="POST"
       name="contact"
