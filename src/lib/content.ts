@@ -59,7 +59,7 @@ export const settings = {
   defaultOgImage: asset("oferta-na-glowna-900x400-k80mlh6a.jpg"),
   phoneDisplay: "665 111 550",
   phoneHref: "tel:+48665111550",
-  emailDisplay: "kontakt@sleekcar.pl",
+  emailDisplay: "sleekcarstudio@gmail.com",
   addressStreet: "ul. Milewskiego 10E",
   addressHint: "",
   postalCode: "62-700",
