@@ -10,7 +10,8 @@ import {
   type ImageAsset,
   type Post,
   type Realization,
-  type Service
+  type Service,
+  isPlaceholderPost
 } from "@/lib/content";
 import { createClient } from "@/lib/prismic";
 
@@ -540,22 +541,32 @@ export async function getPosts() {
       return fallbackPosts;
     }
 
-    return documents.map((document) =>
+    const posts = documents.map((document) =>
       postFromDocument(
         document as PrismicDocument,
         fallbackPosts.find((post) => post.slug === document.uid)
       )
     );
-  }, fallbackPosts);
+
+    return posts.filter((post) => !isPlaceholderPost(post));
+  }, fallbackPosts.filter((post) => !isPlaceholderPost(post)));
 }
 
 export async function getPost(slug: string) {
-  const fallback = fallbackPosts.find((post) => post.slug === slug);
+  const fallback = fallbackPosts.find(
+    (post) => post.slug === slug && !isPlaceholderPost(post)
+  );
 
-  return fromPrismic(async () => {
+  const post = await fromPrismic(async () => {
     const document = await createClient().getByUID("post", slug);
     return postFromDocument(document as PrismicDocument, fallback);
   }, fallback);
+
+  if (!post || isPlaceholderPost(post)) {
+    return undefined;
+  }
+
+  return post;
 }
 
 export async function getTestimonials() {

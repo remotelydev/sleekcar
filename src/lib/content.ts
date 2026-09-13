@@ -949,6 +949,15 @@ export const testimonials = [
   }
 ];
 
+export function isPlaceholderPost(post: Post) {
+  if (post.videoUrl) {
+    return false;
+  }
+
+  const haystack = [post.excerpt, ...post.body].join("\n").toLowerCase();
+  return haystack.includes("prismic") || haystack.includes("miejsce na odcinek");
+}
+
 export function getService(slug: string) {
   return services.find((service) => service.slug === slug);
 }

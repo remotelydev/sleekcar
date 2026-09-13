@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isPlaceholderPost } from "@/lib/content";
 import { getPosts, getRealizations, getServices } from "@/lib/prismic-content";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -30,11 +31,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7
     })),
-    ...posts.map((post) => ({
-      url: absoluteUrl(`/aktualnosci/${post.slug}`),
-      lastModified: new Date(post.publishedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.6
-    }))
+    ...posts
+      .filter((post) => !isPlaceholderPost(post))
+      .map((post) => ({
+        url: absoluteUrl(`/aktualnosci/${post.slug}`),
+        lastModified: new Date(post.publishedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.6
+      }))
   ];
 }
