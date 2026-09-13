@@ -55,7 +55,7 @@ export const asset = (path: string) => encodeURI(`/assets/${path}`);
 export const settings = {
   siteName: "Sleek Car Autokosmetyka",
   shortName: "Sleek Car",
-  siteUrl: "https://sleekcar.pl",
+  siteUrl: "https://sleek-car.pl",
   defaultOgImage: asset("oferta-na-glowna-900x400-k80mlh6a.jpg"),
   phoneDisplay: "665 111 550",
   phoneHref: "tel:+48665111550",
