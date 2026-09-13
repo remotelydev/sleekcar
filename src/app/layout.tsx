@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { draftMode } from "next/headers";
 import { PrismicPreview } from "@prismicio/next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -25,7 +26,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSettings();
+  const [{ isEnabled: isDraftMode }, settings] = await Promise.all([
+    draftMode(),
+    getSettings()
+  ]);
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "AutomotiveBusiness",
@@ -73,7 +77,7 @@ export default async function RootLayout({
         <Header settings={settings} />
         <main>{children}</main>
         <Footer settings={settings} />
-        <PrismicPreview repositoryName={repositoryName} />
+        {isDraftMode ? <PrismicPreview repositoryName={repositoryName} /> : null}
       </body>
     </html>
   );
