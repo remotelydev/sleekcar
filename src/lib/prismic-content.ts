@@ -556,7 +556,7 @@ export async function getPosts() {
     });
 
     if (documents.length === 0) {
-      return fallbackPosts;
+      return fallbackPosts.filter((post) => !isPlaceholderPost(post));
     }
 
     const posts = documents.map((document) =>
