@@ -101,10 +101,14 @@ export default async function RealizationPage({ params }: RealizationPageProps) 
         <section className="section article-layout">
           <div className="article-copy">
             <p className="eyebrow">{realization.vehicle}</p>
-            <h2>Zakres i efekt</h2>
-            {realization.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            {realization.body.length > 0 ? (
+              <>
+                <h2>Zakres i efekt</h2>
+                {realization.body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </>
+            ) : null}
           </div>
 
           <aside className="side-panel">
@@ -131,22 +135,24 @@ export default async function RealizationPage({ params }: RealizationPageProps) 
           </aside>
         </section>
 
-        <section className="section gallery-section">
-          <p className="eyebrow">Galeria</p>
-          <h2>Zdjęcia realizacji</h2>
-          <div className="gallery-grid">
-            {realization.gallery.map((image) => (
-              <div className="gallery-item" key={image.src}>
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(min-width: 980px) 33vw, 100vw"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
+        {realization.gallery.length > 0 ? (
+          <section className="section gallery-section">
+            <p className="eyebrow">Galeria</p>
+            <h2>Zdjęcia realizacji</h2>
+            <div className="gallery-grid">
+              {realization.gallery.map((image) => (
+                <div className="gallery-item" key={image.src}>
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 980px) 33vw, 100vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </article>
 
       <CtaBand

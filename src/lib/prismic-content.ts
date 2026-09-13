@@ -1,12 +1,6 @@
 import * as prismic from "@prismicio/client";
 import {
-  certifications as fallbackCertifications,
-  featuredServiceSlugs,
-  posts as fallbackPosts,
-  realizations as fallbackRealizations,
-  services as fallbackServices,
   settings as fallbackSettings,
-  testimonials as fallbackTestimonials,
   type ImageAsset,
   type Post,
   type Realization,
@@ -22,8 +16,16 @@ type PrismicDocument = {
 };
 
 type Settings = typeof fallbackSettings;
-type Testimonial = (typeof fallbackTestimonials)[number];
-type Certification = (typeof fallbackCertifications)[number];
+type Testimonial = {
+  author: string;
+  quote: string;
+  rating: number;
+};
+type Certification = {
+  name: string;
+  url: string;
+  label: string;
+};
 
 export type PageContent = {
   title: string;
@@ -82,12 +84,36 @@ const fallbackHome: HomeContent = {
   ],
   certificationsEyebrow: "Certyfikowany ekspert",
   certificationsTitle: "Powłoki ochronne i folie PPF",
-  certifications: fallbackCertifications,
-  featuredServices: fallbackServices.filter((service) =>
-    featuredServiceSlugs.includes(service.slug)
-  ),
-  featuredRealizations: fallbackRealizations.slice(0, 3),
-  testimonials: fallbackTestimonials,
+  certifications: [
+    {
+      name: "Titan",
+      url: "https://www.titan-coatings.pl/detailerzy/",
+      label: "Powłoki ochronne"
+    },
+    {
+      name: "ArtDeShine",
+      url: "http://www.artdeshine.pl/partnerzy/",
+      label: "Powłoki ochronne"
+    },
+    {
+      name: "Tevo",
+      url: "https://www.tevocreations.com.pl/partnerzy/wielkopolskie",
+      label: "Powłoki ochronne"
+    },
+    {
+      name: "Clif Design",
+      url: "#",
+      label: "Folie ochronne PPF"
+    },
+    {
+      name: "STEK Poland",
+      url: "#",
+      label: "Folie ochronne PPF"
+    }
+  ],
+  featuredServices: [],
+  featuredRealizations: [],
+  testimonials: [],
   seoTitle: "Detailing, folia PPF i korekta lakieru w Turku",
   seoDescription:
     "Sleek Car Autokosmetyka w Turku: folia PPF, zabezpieczenie lakieru, korekta lakieru, czyszczenie wnętrza i detailing samochodowy."
@@ -170,6 +196,13 @@ function richTextParagraphs(value: unknown, fallback: string[]) {
     .filter((paragraph) => paragraph.length > 0);
 
   return paragraphs.length > 0 ? paragraphs : fallback;
+}
+
+function defaultImage(alt = fallbackSettings.siteName): ImageAsset {
+  return {
+    src: fallbackSettings.defaultOgImage,
+    alt
+  };
 }
 
 function image(value: unknown, fallback: ImageAsset): ImageAsset {
@@ -263,117 +296,93 @@ async function fromPrismic<T>(query: () => Promise<T>, fallback: T): Promise<T> 
   }
 }
 
-function serviceFromDocument(document: PrismicDocument, fallback?: Service): Service {
+function serviceFromDocument(document: PrismicDocument): Service {
   const data = document.data;
-  const slug = document.uid || fallback?.slug || "";
+  const slug = document.uid || "";
 
   return {
-    title: text(data.title, fallback?.title),
+    title: text(data.title),
     slug,
-    eyebrow: text(data.eyebrow, fallback?.eyebrow),
-    summary: text(data.summary, fallback?.summary),
-    metaDescription: text(data.seo_description, fallback?.metaDescription),
-    heroImage: image(data.hero_image, fallback?.heroImage || fallbackServices[0].heroImage),
-    cardImage: image(data.card_image, fallback?.cardImage || fallbackServices[0].cardImage),
-    lead: richText(data.lead, fallback?.lead),
-    benefits: nonEmpty(
-      group(data.benefits).map((item) => text(item.benefit)).filter(Boolean),
-      fallback?.benefits || []
-    ),
-    process: nonEmpty(
-      group(data.process).map((item) => text(item.step)).filter(Boolean),
-      fallback?.process || []
-    ),
-    pricing: nonEmpty(
-      group(data.pricing)
-        .map((item) => ({
-          label: text(item.label),
-          value: text(item.value),
-          note: text(item.note) || undefined
-        }))
-        .filter((item) => item.label && item.value),
-      fallback?.pricing || []
-    ),
-    faqs: nonEmpty(
-      group(data.faq)
-        .map((item) => ({
-          question: text(item.question),
-          answer: text(item.answer)
-        }))
-        .filter((item) => item.question && item.answer),
-      fallback?.faqs || []
-    ),
-    seoTitle: text(data.seo_title, fallback?.seoTitle || ""),
-    body: richTextParagraphs(data.body, fallback?.body || []),
-    relatedServiceSlugs: nonEmpty(
-      group(data.related_services)
-        .map((item) => linkedUid(item.service))
-        .filter(Boolean),
-      fallback?.relatedServiceSlugs || []
-    )
+    eyebrow: text(data.eyebrow),
+    summary: text(data.summary),
+    metaDescription: text(data.seo_description),
+    heroImage: image(data.hero_image, defaultImage()),
+    cardImage: image(data.card_image, defaultImage()),
+    lead: richText(data.lead),
+    benefits: group(data.benefits).map((item) => text(item.benefit)).filter(Boolean),
+    process: group(data.process).map((item) => text(item.step)).filter(Boolean),
+    pricing: group(data.pricing)
+      .map((item) => ({
+        label: text(item.label),
+        value: text(item.value),
+        note: text(item.note) || undefined
+      }))
+      .filter((item) => item.label && item.value),
+    faqs: group(data.faq)
+      .map((item) => ({
+        question: text(item.question),
+        answer: text(item.answer)
+      }))
+      .filter((item) => item.question && item.answer),
+    seoTitle: text(data.seo_title),
+    body: richTextParagraphs(data.body, []),
+    relatedServiceSlugs: group(data.related_services)
+      .map((item) => linkedUid(item.service))
+      .filter(Boolean)
   };
 }
 
-function realizationFromDocument(
-  document: PrismicDocument,
-  fallback?: Realization
-): Realization {
+function realizationFromDocument(document: PrismicDocument): Realization {
   const data = document.data;
-  const slug = document.uid || fallback?.slug || "";
-  const coverImage = image(
-    data.cover_image,
-    fallback?.coverImage || fallbackRealizations[0].coverImage
-  );
+  const slug = document.uid || "";
+  const coverImage = image(data.cover_image, defaultImage());
   const gallery = group(data.gallery)
     .map((item) => image(item.image, { src: "", alt: text(item.alt, coverImage.alt) }))
     .filter((item) => item.src);
 
   return {
-    title: text(data.title, fallback?.title),
+    title: text(data.title),
     slug,
-    vehicle: text(data.vehicle, fallback?.vehicle),
-    service: text(data.service_label, fallback?.service),
-    summary: text(data.summary, fallback?.summary),
-    body: richTextParagraphs(data.body, fallback?.body || []),
+    vehicle: text(data.vehicle),
+    service: text(data.service_label),
+    summary: text(data.summary),
+    body: richTextParagraphs(data.body, []),
     coverImage,
-    gallery: gallery.length > 0 ? gallery : fallback?.gallery || [coverImage],
-    serviceSlugs: nonEmpty(
-      group(data.services)
-        .map((item) => linkedUid(item.service))
-        .filter(Boolean),
-      fallback?.serviceSlugs || []
-    )
+    gallery,
+    serviceSlugs: group(data.services)
+      .map((item) => linkedUid(item.service))
+      .filter(Boolean)
   };
 }
 
-function postFromDocument(document: PrismicDocument, fallback?: Post): Post {
+function postFromDocument(document: PrismicDocument): Post {
   const data = document.data;
-  const slug = document.uid || fallback?.slug || "";
-  const category = text(data.category, fallback?.category) as Post["category"];
+  const slug = document.uid || "";
+  const category = text(data.category) as Post["category"];
 
   return {
-    title: text(data.title, fallback?.title),
+    title: text(data.title),
     slug,
     category,
-    excerpt: text(data.excerpt, fallback?.excerpt),
-    publishedAt: text(data.published_at, fallback?.publishedAt),
-    readingTime: text(data.reading_time, fallback?.readingTime),
-    coverImage: image(data.cover_image, fallback?.coverImage || fallbackPosts[0].coverImage),
-    videoUrl: linkHref(data.video_url, fallback?.videoUrl || "") || undefined,
-    body: richTextParagraphs(data.body, fallback?.body || [])
+    excerpt: text(data.excerpt),
+    publishedAt: text(data.published_at),
+    readingTime: text(data.reading_time),
+    coverImage: image(data.cover_image, defaultImage()),
+    videoUrl: linkHref(data.video_url, "") || undefined,
+    body: richTextParagraphs(data.body, [])
   };
 }
 
-function testimonialFromDocument(document: PrismicDocument, fallback?: Testimonial): Testimonial {
+function testimonialFromDocument(document: PrismicDocument): Testimonial {
   const data = document.data;
 
   return {
-    author: text(data.author_name, fallback?.author),
-    quote: text(data.quote, fallback?.quote),
+    author: text(data.author_name),
+    quote: text(data.quote),
     rating:
       typeof data.rating === "number" && data.rating > 0
         ? Math.min(data.rating, 5)
-        : fallback?.rating || 5
+        : 5
   };
 }
 
@@ -499,26 +508,17 @@ export async function getServices() {
       orderings: [{ field: "document.first_publication_date" }]
     });
 
-    if (documents.length === 0) {
-      return fallbackServices;
-    }
-
     return documents.map((document) =>
-      serviceFromDocument(
-        document as PrismicDocument,
-        fallbackServices.find((service) => service.slug === document.uid)
-      )
+      serviceFromDocument(document as PrismicDocument)
     );
-  }, fallbackServices);
+  }, []);
 }
 
 export async function getService(slug: string) {
-  const fallback = fallbackServices.find((service) => service.slug === slug);
-
   return fromPrismic(async () => {
     const document = await createClient().getByUID("service", slug);
-    return serviceFromDocument(document as PrismicDocument, fallback);
-  }, fallback);
+    return serviceFromDocument(document as PrismicDocument);
+  }, undefined);
 }
 
 export async function getRealizations() {
@@ -527,26 +527,17 @@ export async function getRealizations() {
       orderings: [{ field: "my.realization.published_at", direction: "desc" }]
     });
 
-    if (documents.length === 0) {
-      return fallbackRealizations;
-    }
-
     return documents.map((document) =>
-      realizationFromDocument(
-        document as PrismicDocument,
-        fallbackRealizations.find((realization) => realization.slug === document.uid)
-      )
+      realizationFromDocument(document as PrismicDocument)
     );
-  }, fallbackRealizations);
+  }, []);
 }
 
 export async function getRealization(slug: string) {
-  const fallback = fallbackRealizations.find((realization) => realization.slug === slug);
-
   return fromPrismic(async () => {
     const document = await createClient().getByUID("realization", slug);
-    return realizationFromDocument(document as PrismicDocument, fallback);
-  }, fallback);
+    return realizationFromDocument(document as PrismicDocument);
+  }, undefined);
 }
 
 export async function getPosts() {
@@ -555,30 +546,17 @@ export async function getPosts() {
       orderings: [{ field: "my.post.published_at", direction: "desc" }]
     });
 
-    if (documents.length === 0) {
-      return fallbackPosts.filter((post) => !isPlaceholderPost(post));
-    }
-
-    const posts = documents.map((document) =>
-      postFromDocument(
-        document as PrismicDocument,
-        fallbackPosts.find((post) => post.slug === document.uid)
-      )
-    );
-
-    return posts.filter((post) => !isPlaceholderPost(post));
-  }, fallbackPosts.filter((post) => !isPlaceholderPost(post)));
+    return documents
+      .map((document) => postFromDocument(document as PrismicDocument))
+      .filter((post) => !isPlaceholderPost(post));
+  }, []);
 }
 
 export async function getPost(slug: string) {
-  const fallback = fallbackPosts.find(
-    (post) => post.slug === slug && !isPlaceholderPost(post)
-  );
-
   const post = await fromPrismic(async () => {
     const document = await createClient().getByUID("post", slug);
-    return postFromDocument(document as PrismicDocument, fallback);
-  }, fallback);
+    return postFromDocument(document as PrismicDocument);
+  }, undefined);
 
   if (!post || isPlaceholderPost(post)) {
     return undefined;
@@ -593,14 +571,10 @@ export async function getTestimonials() {
       filters: [prismic.filter.at("my.testimonial.featured", true)]
     });
 
-    if (documents.length === 0) {
-      return fallbackTestimonials;
-    }
-
-    return documents.map((document, index) =>
-      testimonialFromDocument(document as PrismicDocument, fallbackTestimonials[index])
+    return documents.map((document) =>
+      testimonialFromDocument(document as PrismicDocument)
     );
-  }, fallbackTestimonials);
+  }, []);
 }
 
 export async function getHomeContent(): Promise<HomeContent> {
@@ -659,7 +633,7 @@ export async function getHomeContent(): Promise<HomeContent> {
           ? featuredServiceUids
               .map((uid) => services.find((service) => service.slug === uid))
               .filter((service): service is Service => Boolean(service))
-          : fallbackHome.featuredServices,
+          : [],
       featuredRealizations:
         featuredRealizationUids.length > 0
           ? featuredRealizationUids
@@ -667,12 +641,10 @@ export async function getHomeContent(): Promise<HomeContent> {
                 realizations.find((realization) => realization.slug === uid)
               )
               .filter((realization): realization is Realization => Boolean(realization))
-          : realizations.slice(0, 3),
+          : [],
       testimonials: nonEmpty(featuredTestimonials, testimonials),
       seoTitle: text(data.seo_title, fallbackHome.seoTitle),
       seoDescription: text(data.seo_description, fallbackHome.seoDescription)
     };
   }, fallbackHome);
 }
-
-export { fallbackCertifications as certifications };
