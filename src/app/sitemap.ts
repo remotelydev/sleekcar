@@ -9,7 +9,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getRealizations(),
     getServices()
   ]);
-  const staticRoutes = ["", "/oferta", "/realizacje", "/aktualnosci", "/kontakt"];
+  const staticRoutes = [
+    "",
+    "/oferta",
+    "/realizacje",
+    "/aktualnosci",
+    "/kontakt",
+    "/polityka-prywatnosci"
+  ];
   const now = new Date();
 
   return [
