@@ -94,7 +94,7 @@ export default async function HomePage() {
         <SectionHeader
           eyebrow="Oferta"
           title="Usługi, które najczęściej chronią wartość auta"
-          description="Na start wyciągamy najmocniejsze usługi na stronę główną, a pełna oferta ma osobne podstrony przygotowane pod SEO."
+          description="Folia PPF, zabezpieczenie lakieru, korekta i usuwanie wgnieceń — najczęstszy zakres prac w studiu w Turku."
         />
         <div className="card-grid four">
           {home.featuredServices.map((service) => (
@@ -164,7 +164,7 @@ export default async function HomePage() {
         <SectionHeader
           eyebrow="Opinie"
           title="5 gwiazdek od klientów w Google"
-          description="Robocze cytaty są przygotowane do podmiany na konkretne opinie wybrane z profilu Google."
+          description="Opinie klientów z Google o detailingu, folii PPF i zabezpieczeniu aut w Sleek Car."
         />
         <div className="testimonial-grid">
           {home.testimonials.map((testimonial) => (
@@ -202,7 +202,7 @@ export default async function HomePage() {
             </span>
           </div>
           <Link className="text-link standalone" href="/kontakt">
-            Przejdz do kontaktu
+            Przejdź do kontaktu
           </Link>
         </div>
         <MapEmbed settings={settings} />

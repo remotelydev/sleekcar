@@ -9,8 +9,8 @@ type CtaBandProps = {
 };
 
 export function CtaBand({
-  title = "Chcesz dobrze zabezpieczyc swoje auto?",
-  text = "Najdokladniejsza wycena powstaje po rozmowie i obejrzeniu samochodu.",
+  title = "Chcesz dobrze zabezpieczyć swoje auto?",
+  text = "Najdokładniejsza wycena powstaje po rozmowie i obejrzeniu samochodu.",
   settings = fallbackSettings
 }: CtaBandProps) {
   return (
