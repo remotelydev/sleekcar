@@ -48,6 +48,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
     notFound();
   }
 
+  const hasBenefits = service.benefits.length > 0;
+  const hasPricing = Boolean(service.pricing && service.pricing.length > 0);
+
   const relatedServices = (service.relatedServiceSlugs || [])
     .map((relatedSlug) => services.find((item) => item.slug === relatedSlug))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
@@ -144,62 +147,72 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </section>
       ) : null}
 
-      <section className="section detail-grid">
-        <div className="content-column">
-          <p className="eyebrow">Korzyści</p>
-          <h2>Dlaczego warto?</h2>
-          <ul className="check-list">
-            {service.benefits.map((benefit) => (
-              <li key={benefit}>
-                <CheckCircle2 aria-hidden="true" size={18} />
-                {benefit}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <aside className="side-panel">
-          <p className="eyebrow">Wycena</p>
-          <h2>Ceny i czas</h2>
-          {service.pricing?.map((item) => (
-            <div className="price-row" key={`${item.label}-${item.value}`}>
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-              {item.note ? <small>{item.note}</small> : null}
+      {hasBenefits || hasPricing ? (
+        <section className={hasBenefits && hasPricing ? "section detail-grid" : "section"}>
+          {hasBenefits ? (
+            <div className="content-column">
+              <p className="eyebrow">Korzyści</p>
+              <h2>Dlaczego warto?</h2>
+              <ul className="check-list">
+                {service.benefits.map((benefit) => (
+                  <li key={benefit}>
+                    <CheckCircle2 aria-hidden="true" size={18} />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
-        </aside>
-      </section>
+          ) : null}
 
-      <section className="section process-section">
-        <div>
-          <p className="eyebrow">Proces</p>
-          <h2>Jak przebiega usługa?</h2>
-        </div>
-        <div className="process-list">
-          {service.process.map((step, index) => (
-            <article key={step}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>{step}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+          {hasPricing ? (
+            <aside className="side-panel">
+              <p className="eyebrow">Wycena</p>
+              <h2>Ceny i czas</h2>
+              {service.pricing?.map((item) => (
+                <div className="price-row" key={`${item.label}-${item.value}`}>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                  {item.note ? <small>{item.note}</small> : null}
+                </div>
+              ))}
+            </aside>
+          ) : null}
+        </section>
+      ) : null}
 
-      <section className="section faq-section">
-        <div>
-          <p className="eyebrow">FAQ</p>
-          <h2>Najczęstsze pytania</h2>
-        </div>
-        <div className="faq-list">
-          {service.faqs.map((item) => (
-            <article key={item.question}>
-              <h3>{item.question}</h3>
-              <p>{item.answer}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      {service.process.length > 0 ? (
+        <section className="section process-section">
+          <div>
+            <p className="eyebrow">Proces</p>
+            <h2>Jak przebiega usługa?</h2>
+          </div>
+          <div className="process-list">
+            {service.process.map((step, index) => (
+              <article key={step}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{step}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {service.faqs.length > 0 ? (
+        <section className="section faq-section">
+          <div>
+            <p className="eyebrow">FAQ</p>
+            <h2>Najczęstsze pytania</h2>
+          </div>
+          <div className="faq-list">
+            {service.faqs.map((item) => (
+              <article key={item.question}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {relatedServices.length > 0 ? (
         <section className="section">
