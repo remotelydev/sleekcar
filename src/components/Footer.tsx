@@ -57,6 +57,7 @@ export function Footer({ settings = fallbackSettings }: FooterProps) {
 
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {settings.shortName}. Wszystkie prawa zastrzeżone.</p>
+        <Link href="/polityka-prywatnosci">Polityka prywatności</Link>
       </div>
     </footer>
   );

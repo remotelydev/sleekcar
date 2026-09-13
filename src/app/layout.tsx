@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { draftMode } from "next/headers";
 import { PrismicPreview } from "@prismicio/next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -25,13 +26,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSettings();
+  const [{ isEnabled: isDraftMode }, settings] = await Promise.all([
+    draftMode(),
+    getSettings()
+  ]);
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "AutomotiveBusiness",
     name: settings.siteName,
     url: absoluteUrl("/"),
     telephone: settings.phoneDisplay,
+    email: settings.emailDisplay,
     image: absoluteUrl(settings.defaultOgImage),
     address: {
       "@type": "PostalAddress",
@@ -39,6 +44,11 @@ export default async function RootLayout({
       addressLocality: settings.city,
       postalCode: settings.postalCode,
       addressCountry: "PL"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 52.0203,
+      longitude: 18.5047
     },
     openingHoursSpecification: [
       {
@@ -48,7 +58,13 @@ export default async function RootLayout({
         closes: "17:00"
       }
     ],
-    areaServed: ["Turek", "Wielkopolskie"],
+    areaServed: [
+      { "@type": "City", name: "Turek" },
+      { "@type": "City", name: "Konin" },
+      { "@type": "City", name: "Koło" },
+      { "@type": "City", name: "Kalisz" },
+      { "@type": "City", name: "Uniejów" }
+    ],
     sameAs: [settings.social.facebook, settings.social.instagram].filter(
       (url) => url !== "#"
     )
@@ -61,7 +77,7 @@ export default async function RootLayout({
         <Header settings={settings} />
         <main>{children}</main>
         <Footer settings={settings} />
-        <PrismicPreview repositoryName={repositoryName} />
+        {isDraftMode ? <PrismicPreview repositoryName={repositoryName} /> : null}
       </body>
     </html>
   );

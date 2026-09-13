@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
+import { ServiceCard } from "@/components/ServiceCard";
 import { getService, getServices, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
@@ -28,7 +29,7 @@ export async function generateMetadata({
   }
 
   return createMetadata({
-    title: `${service.title} Turek`,
+    title: service.seoTitle || `${service.title} Turek`,
     description: service.metaDescription,
     path: `/oferta/${service.slug}`,
     image: service.heroImage.src
@@ -37,11 +38,19 @@ export async function generateMetadata({
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const [service, settings] = await Promise.all([getService(slug), getSettings()]);
+  const [service, services, settings] = await Promise.all([
+    getService(slug),
+    getServices(),
+    getSettings()
+  ]);
 
   if (!service) {
     notFound();
   }
+
+  const relatedServices = (service.relatedServiceSlugs || [])
+    .map((relatedSlug) => services.find((item) => item.slug === relatedSlug))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -86,10 +95,27 @@ export default async function ServicePage({ params }: ServicePageProps) {
     ]
   };
 
+  const faqSchema =
+    service.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: service.faqs.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer
+            }
+          }))
+        }
+      : null;
+
   return (
     <>
       <JsonLd data={serviceSchema} />
       <JsonLd data={breadcrumbSchema} />
+      {faqSchema ? <JsonLd data={faqSchema} /> : null}
       <section className="detail-hero">
         <div className="detail-hero-copy">
           <Breadcrumbs items={[{ label: "Oferta", href: "/oferta" }, { label: service.title }]} />
@@ -107,6 +133,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
           />
         </div>
       </section>
+
+      {service.body && service.body.length > 0 ? (
+        <section className="section">
+          <div className="article-copy">
+            {service.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="section detail-grid">
         <div className="content-column">
@@ -164,6 +200,18 @@ export default async function ServicePage({ params }: ServicePageProps) {
           ))}
         </div>
       </section>
+
+      {relatedServices.length > 0 ? (
+        <section className="section">
+          <p className="eyebrow">Powiązane usługi</p>
+          <h2>Zobacz też</h2>
+          <div className="card-grid three">
+            {relatedServices.map((related) => (
+              <ServiceCard key={related.slug} service={related} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <CtaBand
         title={`Umów: ${service.title.toLowerCase()}`}

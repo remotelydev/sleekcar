@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
+import { isPlaceholderPost } from "@/lib/content";
 import { getPost, getPosts, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
@@ -53,12 +54,25 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     return {};
   }
 
-  return createMetadata({
+  const metadata = createMetadata({
     title: post.title,
     description: post.excerpt,
     path: `/aktualnosci/${post.slug}`,
-    image: post.coverImage.src
+    image: post.coverImage.src,
+    type: "article"
   });
+
+  if (isPlaceholderPost(post)) {
+    return {
+      ...metadata,
+      robots: {
+        index: false,
+        follow: false
+      }
+    };
+  }
+
+  return metadata;
 }
 
 export default async function PostPage({ params }: PostPageProps) {

@@ -10,7 +10,8 @@ import {
   type ImageAsset,
   type Post,
   type Realization,
-  type Service
+  type Service,
+  isPlaceholderPost
 } from "@/lib/content";
 import { createClient } from "@/lib/prismic";
 
@@ -141,7 +142,7 @@ const fallbackContactPage: ContactPageContent = {
   },
   formTitle: "Napisz wiadomość",
   mapTitle: "ul. Milewskiego 10E, Turek",
-  seoTitle: "Kontakt",
+    seoTitle: "Kontakt, dojazd i wycena | Sleek Car Turek",
   seoDescription:
     "Skontaktuj się ze Sleek Car Autokosmetyka w Turku. Telefon, adres, godziny otwarcia, formularz i mapa dojazdu."
 };
@@ -301,6 +302,14 @@ function serviceFromDocument(document: PrismicDocument, fallback?: Service): Ser
         }))
         .filter((item) => item.question && item.answer),
       fallback?.faqs || []
+    ),
+    seoTitle: text(data.seo_title, fallback?.seoTitle || ""),
+    body: richTextParagraphs(data.body, fallback?.body || []),
+    relatedServiceSlugs: nonEmpty(
+      group(data.related_services)
+        .map((item) => linkedUid(item.service))
+        .filter(Boolean),
+      fallback?.relatedServiceSlugs || []
     )
   };
 }
@@ -327,7 +336,13 @@ function realizationFromDocument(
     summary: text(data.summary, fallback?.summary),
     body: richTextParagraphs(data.body, fallback?.body || []),
     coverImage,
-    gallery: gallery.length > 0 ? gallery : fallback?.gallery || [coverImage]
+    gallery: gallery.length > 0 ? gallery : fallback?.gallery || [coverImage],
+    serviceSlugs: nonEmpty(
+      group(data.services)
+        .map((item) => linkedUid(item.service))
+        .filter(Boolean),
+      fallback?.serviceSlugs || []
+    )
   };
 }
 
@@ -431,9 +446,13 @@ function pageContentFromDocument(
 function contactPageContentFromDocument(document: PrismicDocument): ContactPageContent {
   const page = pageContentFromDocument(document, fallbackContactPage);
   const data = document.data;
+  const shortKontaktTitles = new Set(["Kontakt", "Kontakt | Sleek Car"]);
 
   return {
     ...page,
+    seoTitle: shortKontaktTitles.has(page.seoTitle)
+      ? fallbackContactPage.seoTitle
+      : page.seoTitle,
     formTitle: text(data.form_title, fallbackContactPage.formTitle),
     mapTitle: text(data.map_title, fallbackContactPage.mapTitle)
   };
@@ -537,25 +556,35 @@ export async function getPosts() {
     });
 
     if (documents.length === 0) {
-      return fallbackPosts;
+      return fallbackPosts.filter((post) => !isPlaceholderPost(post));
     }
 
-    return documents.map((document) =>
+    const posts = documents.map((document) =>
       postFromDocument(
         document as PrismicDocument,
         fallbackPosts.find((post) => post.slug === document.uid)
       )
     );
-  }, fallbackPosts);
+
+    return posts.filter((post) => !isPlaceholderPost(post));
+  }, fallbackPosts.filter((post) => !isPlaceholderPost(post)));
 }
 
 export async function getPost(slug: string) {
-  const fallback = fallbackPosts.find((post) => post.slug === slug);
+  const fallback = fallbackPosts.find(
+    (post) => post.slug === slug && !isPlaceholderPost(post)
+  );
 
-  return fromPrismic(async () => {
+  const post = await fromPrismic(async () => {
     const document = await createClient().getByUID("post", slug);
     return postFromDocument(document as PrismicDocument, fallback);
   }, fallback);
+
+  if (!post || isPlaceholderPost(post)) {
+    return undefined;
+  }
+
+  return post;
 }
 
 export async function getTestimonials() {

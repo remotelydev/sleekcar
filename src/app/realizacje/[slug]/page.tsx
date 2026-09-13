@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
@@ -7,6 +8,7 @@ import { JsonLd } from "@/components/JsonLd";
 import {
   getRealization,
   getRealizations,
+  getServices,
   getSettings
 } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
@@ -34,20 +36,26 @@ export async function generateMetadata({
     title: realization.title,
     description: realization.summary,
     path: `/realizacje/${realization.slug}`,
-    image: realization.coverImage.src
+    image: realization.coverImage.src,
+    type: "article"
   });
 }
 
 export default async function RealizationPage({ params }: RealizationPageProps) {
   const { slug } = await params;
-  const [realization, settings] = await Promise.all([
+  const [realization, services, settings] = await Promise.all([
     getRealization(slug),
+    getServices(),
     getSettings()
   ]);
 
   if (!realization) {
     notFound();
   }
+
+  const linkedServices = (realization.serviceSlugs || [])
+    .map((serviceSlug) => services.find((item) => item.slug === serviceSlug))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   const schema = {
     "@context": "https://schema.org",
@@ -107,7 +115,18 @@ export default async function RealizationPage({ params }: RealizationPageProps) 
             </div>
             <div className="price-row">
               <span>Usługa</span>
-              <strong>{realization.service}</strong>
+              {linkedServices.length > 0 ? (
+                <strong>
+                  {linkedServices.map((item, index) => (
+                    <span key={item.slug}>
+                      {index > 0 ? ", " : null}
+                      <Link href={`/oferta/${item.slug}`}>{item.title}</Link>
+                    </span>
+                  ))}
+                </strong>
+              ) : (
+                <strong>{realization.service}</strong>
+              )}
             </div>
           </aside>
         </section>

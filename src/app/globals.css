@@ -697,6 +697,11 @@ small {
   max-width: 48rem;
 }
 
+.article-copy h2 {
+  font-size: 1.4rem;
+  margin: 2rem 0 0.75rem;
+}
+
 .video-embed {
   aspect-ratio: 16 / 9;
   background: #09090b;
@@ -983,6 +988,20 @@ small {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: 2rem;
   padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-bottom a {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.footer-bottom a:hover {
+  color: var(--text);
 }
 
 .footer-bottom p {
