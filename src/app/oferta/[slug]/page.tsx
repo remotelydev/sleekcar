@@ -125,6 +125,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </div>
       </section>
 
+      {service.body && service.body.length > 0 ? (
+        <section className="section">
+          <div className="article-copy">
+            {service.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <section className="section detail-grid">
         <div className="content-column">
           <p className="eyebrow">Korzyści</p>

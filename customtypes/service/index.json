@@ -11,6 +11,7 @@
       "eyebrow": { "type": "Text", "config": { "label": "Eyebrow" } },
       "summary": { "type": "Text", "config": { "label": "Summary" } },
       "lead": { "type": "StructuredText", "config": { "label": "Lead", "multi": "paragraph,strong,em,hyperlink" } },
+      "body": { "type": "StructuredText", "config": { "label": "Body", "multi": "heading2,heading3,paragraph,strong,em,hyperlink,list-item,o-list-item" } },
       "hero_image": { "type": "Image", "config": { "label": "Hero image", "constraint": {}, "thumbnails": [] } },
       "card_image": { "type": "Image", "config": { "label": "Card image", "constraint": {}, "thumbnails": [] } },
       "benefits": {

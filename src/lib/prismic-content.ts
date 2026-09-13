@@ -303,7 +303,8 @@ function serviceFromDocument(document: PrismicDocument, fallback?: Service): Ser
         .filter((item) => item.question && item.answer),
       fallback?.faqs || []
     ),
-    seoTitle: text(data.seo_title, fallback?.seoTitle || "")
+    seoTitle: text(data.seo_title, fallback?.seoTitle || ""),
+    body: richTextParagraphs(data.body, fallback?.body || [])
   };
 }
 
@@ -433,9 +434,13 @@ function pageContentFromDocument(
 function contactPageContentFromDocument(document: PrismicDocument): ContactPageContent {
   const page = pageContentFromDocument(document, fallbackContactPage);
   const data = document.data;
+  const shortKontaktTitles = new Set(["Kontakt", "Kontakt | Sleek Car"]);
 
   return {
     ...page,
+    seoTitle: shortKontaktTitles.has(page.seoTitle)
+      ? fallbackContactPage.seoTitle
+      : page.seoTitle,
     formTitle: text(data.form_title, fallbackContactPage.formTitle),
     mapTitle: text(data.map_title, fallbackContactPage.mapTitle)
   };
