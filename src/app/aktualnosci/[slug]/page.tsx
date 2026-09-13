@@ -58,7 +58,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     title: post.title,
     description: post.excerpt,
     path: `/aktualnosci/${post.slug}`,
-    image: post.coverImage.src
+    image: post.coverImage.src,
+    type: "article"
   });
 
   if (isPlaceholderPost(post)) {

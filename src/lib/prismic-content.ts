@@ -142,7 +142,7 @@ const fallbackContactPage: ContactPageContent = {
   },
   formTitle: "Napisz wiadomość",
   mapTitle: "ul. Milewskiego 10E, Turek",
-  seoTitle: "Kontakt",
+    seoTitle: "Kontakt, dojazd i wycena | Sleek Car Turek",
   seoDescription:
     "Skontaktuj się ze Sleek Car Autokosmetyka w Turku. Telefon, adres, godziny otwarcia, formularz i mapa dojazdu."
 };
@@ -302,7 +302,8 @@ function serviceFromDocument(document: PrismicDocument, fallback?: Service): Ser
         }))
         .filter((item) => item.question && item.answer),
       fallback?.faqs || []
-    )
+    ),
+    seoTitle: text(data.seo_title, fallback?.seoTitle || "")
   };
 }
 

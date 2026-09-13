@@ -25,6 +25,7 @@ export type Service = {
     note?: string;
   }[];
   faqs: FaqItem[];
+  seoTitle?: string;
 };
 
 export type Realization = {

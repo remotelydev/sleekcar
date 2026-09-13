@@ -6,6 +6,7 @@ type SeoInput = {
   description: string;
   path?: string;
   image?: string;
+  type?: "website" | "article";
 };
 
 export function absoluteUrl(path = "") {
@@ -29,7 +30,8 @@ export function createMetadata({
   title,
   description,
   path = "",
-  image = settings.defaultOgImage
+  image = settings.defaultOgImage,
+  type = "website"
 }: SeoInput): Metadata {
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
@@ -53,7 +55,7 @@ export function createMetadata({
       url,
       siteName: settings.siteName,
       locale: "pl_PL",
-      type: "website",
+      type,
       images: [
         {
           url: image,

@@ -34,7 +34,8 @@ export async function generateMetadata({
     title: realization.title,
     description: realization.summary,
     path: `/realizacje/${realization.slug}`,
-    image: realization.coverImage.src
+    image: realization.coverImage.src,
+    type: "article"
   });
 }
 

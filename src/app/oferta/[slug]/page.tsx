@@ -28,7 +28,7 @@ export async function generateMetadata({
   }
 
   return createMetadata({
-    title: `${service.title} Turek`,
+    title: service.seoTitle || `${service.title} Turek`,
     description: service.metaDescription,
     path: `/oferta/${service.slug}`,
     image: service.heroImage.src
