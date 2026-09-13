@@ -27,6 +27,7 @@ export type Service = {
   faqs: FaqItem[];
   seoTitle?: string;
   body?: string[];
+  relatedServiceSlugs?: string[];
 };
 
 export type Realization = {
@@ -38,6 +39,7 @@ export type Realization = {
   body: string[];
   coverImage: ImageAsset;
   gallery: ImageAsset[];
+  serviceSlugs?: string[];
 };
 
 export type Post = {
@@ -170,7 +172,8 @@ export const services: Service[] = [
         answer:
           "Przy poprawnej aplikacji folia jest bardzo dyskretna. Chroni lakier, ale nie zmienia charakteru auta."
       }
-    ]
+    ],
+    relatedServiceSlugs: ["zabezpieczenie-lakieru", "renowacja-lakieru"]
   },
   {
     title: "Zabezpieczenie lakieru",
@@ -221,7 +224,8 @@ export const services: Service[] = [
         answer:
           "Przy wielu autach warto ją wykonać, bo zabezpieczenie utrwala aktualny stan lakieru."
       }
-    ]
+    ],
+    relatedServiceSlugs: ["folia-ochronna-ppf", "renowacja-lakieru"]
   },
   {
     title: "Renowacja lakieru",
@@ -270,7 +274,8 @@ export const services: Service[] = [
         answer:
           "Najczęściej polecamy powłokę ochronną albo folię PPF na elementy najbardziej narażone na uszkodzenia."
       }
-    ]
+    ],
+    relatedServiceSlugs: ["folia-ochronna-ppf", "zabezpieczenie-lakieru"]
   },
   {
     title: "Przyciemnianie szyb",
@@ -310,7 +315,8 @@ export const services: Service[] = [
         answer:
           "Zakres przyciemnienia musi być zgodny z przepisami. Przed usługą dobieramy wariant bezpieczny dla użytkowania auta."
       }
-    ]
+    ],
+    relatedServiceSlugs: ["przyciemnianie-lamp", "folia-ochronna-ppf"]
   },
   {
     title: "Czyszczenie wnętrza",
@@ -767,7 +773,8 @@ export const realizations: Realization[] = [
       { src: asset("m3/M3-1-of-12-lbfchia6.jpg"), alt: "BMW M3 przedni bok" },
       { src: asset("m3/M3-5-of-12-lbfchnwo.jpg"), alt: "BMW M3 detal lakieru" },
       { src: asset("m3/M3-11-of-12-lbfchvmu.jpg"), alt: "BMW M3 po zabezpieczeniu" }
-    ]
+    ],
+    serviceSlugs: ["folia-ochronna-ppf"]
   },
   {
     title: "Porsche 911 Turbo S pod ochroną PPF",
@@ -788,7 +795,8 @@ export const realizations: Realization[] = [
       { src: asset("911 turbo s/1_21-l10nts5q.jpg"), alt: "Porsche 911 Turbo S bok auta" },
       { src: asset("911 turbo s/1_40-l10ntz06.jpg"), alt: "Porsche 911 Turbo S po detailingu" },
       { src: asset("911 turbo s/1_55-l10nu61y.jpg"), alt: "Detal lakieru Porsche 911 Turbo S" }
-    ]
+    ],
+    serviceSlugs: ["folia-ochronna-ppf"]
   },
   {
     title: "Lamborghini z odświeżonym wnętrzem",
@@ -809,7 +817,8 @@ export const realizations: Realization[] = [
       { src: asset("lambo/1-l10o07zj.jpg"), alt: "Lamborghini w studiu" },
       { src: asset("lambo/7-l10o0frz.jpg"), alt: "Detal wnętrza Lamborghini" },
       { src: asset("lambo/14-l10o0ptc.jpg"), alt: "Lamborghini po czyszczeniu" }
-    ]
+    ],
+    serviceSlugs: ["czyszczenie-wnetrza"]
   },
   {
     title: "Audi RS6 po korekcie i zabezpieczeniu",
@@ -830,7 +839,8 @@ export const realizations: Realization[] = [
       { src: asset("rs6/1_9-l10nh85f.jpg"), alt: "Audi RS6 detal lakieru" },
       { src: asset("rs6/1_16-l10nhi2i.jpg"), alt: "Audi RS6 w studiu" },
       { src: asset("rs6/1_22-l10nhkum.jpg"), alt: "Audi RS6 po zabezpieczeniu" }
-    ]
+    ],
+    serviceSlugs: ["renowacja-lakieru", "zabezpieczenie-lakieru"]
   },
   {
     title: "BMW X5 zabezpieczone folią PPF",
@@ -851,7 +861,8 @@ export const realizations: Realization[] = [
       { src: asset("x5 ppf/1-lbf3ogl1.jpg"), alt: "BMW X5 przedni bok" },
       { src: asset("x5 ppf/1_21-lbf3on22.jpg"), alt: "BMW X5 detal folii" },
       { src: asset("x5 ppf/1_29-lbf3opcl.jpg"), alt: "BMW X5 po aplikacji PPF" }
-    ]
+    ],
+    serviceSlugs: ["folia-ochronna-ppf"]
   },
   {
     title: "Cupra Leon ST po detailingu",
@@ -872,7 +883,8 @@ export const realizations: Realization[] = [
       { src: asset("cupra leon st/1-lbfc5f82.jpg"), alt: "Cupra Leon ST przód" },
       { src: asset("cupra leon st/1_29-lbfc5kzg.jpg"), alt: "Cupra Leon ST lakier" },
       { src: asset("cupra leon st/1_43-lbfc5sey.jpg"), alt: "Cupra Leon ST po pracach" }
-    ]
+    ],
+    serviceSlugs: ["renowacja-lakieru"]
   }
 ];
 

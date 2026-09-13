@@ -304,7 +304,13 @@ function serviceFromDocument(document: PrismicDocument, fallback?: Service): Ser
       fallback?.faqs || []
     ),
     seoTitle: text(data.seo_title, fallback?.seoTitle || ""),
-    body: richTextParagraphs(data.body, fallback?.body || [])
+    body: richTextParagraphs(data.body, fallback?.body || []),
+    relatedServiceSlugs: nonEmpty(
+      group(data.related_services)
+        .map((item) => linkedUid(item.service))
+        .filter(Boolean),
+      fallback?.relatedServiceSlugs || []
+    )
   };
 }
 
@@ -330,7 +336,13 @@ function realizationFromDocument(
     summary: text(data.summary, fallback?.summary),
     body: richTextParagraphs(data.body, fallback?.body || []),
     coverImage,
-    gallery: gallery.length > 0 ? gallery : fallback?.gallery || [coverImage]
+    gallery: gallery.length > 0 ? gallery : fallback?.gallery || [coverImage],
+    serviceSlugs: nonEmpty(
+      group(data.services)
+        .map((item) => linkedUid(item.service))
+        .filter(Boolean),
+      fallback?.serviceSlugs || []
+    )
   };
 }
 

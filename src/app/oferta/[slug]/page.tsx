@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CtaBand } from "@/components/CtaBand";
 import { JsonLd } from "@/components/JsonLd";
+import { ServiceCard } from "@/components/ServiceCard";
 import { getService, getServices, getSettings } from "@/lib/prismic-content";
 import { absoluteUrl, createMetadata } from "@/lib/seo";
 
@@ -37,11 +38,19 @@ export async function generateMetadata({
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const [service, settings] = await Promise.all([getService(slug), getSettings()]);
+  const [service, services, settings] = await Promise.all([
+    getService(slug),
+    getServices(),
+    getSettings()
+  ]);
 
   if (!service) {
     notFound();
   }
+
+  const relatedServices = (service.relatedServiceSlugs || [])
+    .map((relatedSlug) => services.find((item) => item.slug === relatedSlug))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -191,6 +200,18 @@ export default async function ServicePage({ params }: ServicePageProps) {
           ))}
         </div>
       </section>
+
+      {relatedServices.length > 0 ? (
+        <section className="section">
+          <p className="eyebrow">Powiązane usługi</p>
+          <h2>Zobacz też</h2>
+          <div className="card-grid two">
+            {relatedServices.map((related) => (
+              <ServiceCard key={related.slug} service={related} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <CtaBand
         title={`Umów: ${service.title.toLowerCase()}`}
