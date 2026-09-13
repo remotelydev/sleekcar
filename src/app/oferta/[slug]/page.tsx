@@ -86,10 +86,27 @@ export default async function ServicePage({ params }: ServicePageProps) {
     ]
   };
 
+  const faqSchema =
+    service.faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: service.faqs.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer
+            }
+          }))
+        }
+      : null;
+
   return (
     <>
       <JsonLd data={serviceSchema} />
       <JsonLd data={breadcrumbSchema} />
+      {faqSchema ? <JsonLd data={faqSchema} /> : null}
       <section className="detail-hero">
         <div className="detail-hero-copy">
           <Breadcrumbs items={[{ label: "Oferta", href: "/oferta" }, { label: service.title }]} />
