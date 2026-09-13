@@ -205,7 +205,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <section className="section">
           <p className="eyebrow">Powiązane usługi</p>
           <h2>Zobacz też</h2>
-          <div className="card-grid two">
+          <div className="card-grid three">
             {relatedServices.map((related) => (
               <ServiceCard key={related.slug} service={related} />
             ))}

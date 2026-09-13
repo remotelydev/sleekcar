@@ -697,6 +697,11 @@ small {
   max-width: 48rem;
 }
 
+.article-copy h2 {
+  font-size: 1.4rem;
+  margin: 2rem 0 0.75rem;
+}
+
 .video-embed {
   aspect-ratio: 16 / 9;
   background: #09090b;
