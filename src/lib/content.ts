@@ -140,6 +140,15 @@ export const services: Service[] = [
     },
     lead:
       "PPF to najlepszy wybór dla kierowców, którzy chcą realnie chronić lakier auta. Warstwa folii przyjmuje na siebie uderzenia kamieni, drobne zarysowania i ślady codziennej eksploatacji, a przy tym pozostaje praktycznie niewidoczna.",
+    seoTitle: "Folia PPF Turek, Konin, Koło, Kalisz | Sleek Car",
+    body: [
+      "Studio Sleek Car w Turku okleja auta folią ochronną PPF foliami Clif Design i STEK. Pracujemy dla klientów z Turku, Konina, Koła, Kalisza i Uniejowa — door to door w Turku jest bezpłatny, a auto z okolic możemy odebrać po umówieniu terminu. Folia ma sens, gdy jeździsz nowym albo świeżo kupionym samochodem, często stoisz na drodze ekspresowej albo po prostu nie chcesz, żeby pierwszy sezon zostawił odpryski na masce i zderzaku.",
+      "Zakres dobieramy do auta, nie do szablonu. Najczęściej robimy pakiet przodu: maska, zderzak, nadkola, lusterka i krawędzie drzwi. Pełne nadwozie ma sens przy autach premium, leasingu i gdy lakier jest trudny do polerowania. Między tymi wariantami są pakiety „front plus progi” albo wybrane elementy, które w danym modelu łapią kamienie. Cena jest indywidualna, bo zależy od kształtu blach, liczby przetłoczeń i tego, czy przed folią potrzebna jest korekta.",
+      "Aplikacja nie zaczyna się od rozwijania rolki. Najpierw mycie, dekontaminacja i ocena lakieru. Jeśli na masce są już hologramy albo zarysowania, folia je utrwali — wtedy najpierw robimy renowację lakieru. Samo kładzenie PPF trwa od jednego do kilku dni. Krawędzie chowamy tam, gdzie da się to zrobić czysto, a na końcu sprawdzamy krawędzie pod światło i oddajemy auto z instrukcją mycia.",
+      "Po PPF auto myje się łatwiej dzięki warstwie hydrofobowej, ale nie wolno go myć myjnią szczotkową ani od razu po aplikacji. Przez pierwsze dni unikamy automatów i twardego wosku. Drobne rysy na folii potrafią się zaciągnąć od ciepła (samoregeneracja). Gwarancja producenta, przy poprawnej pielęgnacji, sięga nawet 10 lat — konkretne warunki potwierdzamy przy wycenie dla wybranej folii.",
+      "Jeśli wahasz się między folią a powłoką, krótko: PPF chroni mechanicznie, powłoka ułatwia mycie i podbija połysk. Często łączymy oba: PPF na przodzie, powłoka na reszcie nadwozia. Szersze porównanie jest w poradniku „Folia PPF czy powłoka ochronna”. Realizacje PPF — między innymi BMW M3 Touring, Porsche 911 Turbo S i BMW X5 — pokazują, jak dyskretnie folia siedzi na lakierze.",
+      "Wycenę robimy po zdjęciach albo oględzinach w studiu przy ul. Milewskiego 10E. Napisz model, rocznik i czy interesuje Cię przód, czy full body. Z Konina, Koła, Kalisza i Uniejowa dojazd jest krótki, a odbiór auta można połączyć z innymi usługami, na przykład przyciemnianiem szyb albo korektą."
+    ],
     benefits: [
       "Ochrona przed odpryskami, otarciami i zarysowaniami",
       "Grubość około 200 mikronów",
@@ -193,6 +202,14 @@ export const services: Service[] = [
     },
     lead:
       "Lakier codziennie pracuje w trudnych warunkach: sól, chemia drogowa, promieniowanie UV, owady, pył i częste mycie stopniowo odbierają mu głębię. Dobre zabezpieczenie spowalnia ten proces i ułatwia utrzymanie auta w czystości.",
+    seoTitle: "Zabezpieczenie lakieru Turek | powłoka i PPF | Sleek Car",
+    body: [
+      "Zabezpieczenie lakieru w Sleek Car to nie jeden produkt, tylko dobór technologii do tego, jak faktycznie używasz auta. W Turku i dla klientów z Konina, Koła, Kalisza oraz Uniejowa robimy woski, powłoki grafenowe i elastomerowe oraz folię PPF. Inaczej chroni się weekendowe coupe, inaczej rodzinnego SUV-a, który stoi pod chmurką i jeździ na wakacje.",
+      "Powłoka ochronna daje hydrofobowość, głębię koloru i tarczę przed UV oraz chemią z myjni. Nie zastąpi folii przy odpryskach od kamieni — do tego jest PPF. Dlatego często składamy pakiet: korekta, potem powłoka na całe nadwozie, a na masce i zderzaku folia. Jeśli lakier jest już zarysowany, najpierw go odświeżamy, bo powłoka konserwuje stan, który zastanie.",
+      "Na oględzinach pytamy o mycie, parking, dzieci, psa, trasy S8/A2. Z tego wynika rekomendacja: wosk na sezon, powłoka na dłużej, PPF gdy zależy Ci na lakierze „jak z salonu”. Czas pracy to zwykle 1–3 dni, w zależności od przygotowania i tego, czy łączymy zabezpieczenie z korektą. Ceny podajemy po obejrzeniu auta — stan lakieru zmienia zakres mocniej niż sam model.",
+      "Po powłoce mycie ręczne i pH-neutralna chemia wystarczą, żeby efekt trzymał się dłużej. Unikamy myjni szczotkowych i twardych padów. Jeśli auto przyjedzie z Konina albo Kalisza, możemy połączyć odbiór door to door z innymi pracami, żeby nie wozić samochodu kilka razy.",
+      "Porównanie folii i powłoki opisaliśmy w artykule „Folia PPF czy powłoka ochronna”. Osobne strony mają też sama folia PPF i renowacja lakieru — tam są pakiety korekty od 700 zł. Zabezpieczenie po korekcie to ten moment, w którym efekt polerowania przestaje być jednorazową sesją i zaczyna być łatwiejszy do utrzymania przez kolejne sezony."
+    ],
     benefits: [
       "Mniejsze przywieranie brudu i łatwiejsze osuszanie",
       "Ochrona przed promieniowaniem UV",
@@ -245,6 +262,14 @@ export const services: Service[] = [
     },
     lead:
       "Zmatowienie lakieru, hologramy i zarysowania powstają naturalnie podczas użytkowania auta. Renowacja pozwala odwrócić ten proces i przywrócić lakierowi głębię, połysk oraz czystsze odbicie światła.",
+    seoTitle: "Korekta lakieru Turek | renowacja od 700 zł | Sleek Car",
+    body: [
+      "Renowacja lakieru w Sleek Car to polerowanie pod kontrolą, nie „na błysk za wszelką cenę”. Pracujemy w Turku dla aut z miasta i z Konina, Koła, Kalisza oraz Uniejowa. Ciemne lakiery, zwłaszcza na RS, M i AMG, bardzo szybko pokazują hologramy po myjni. Korekta zbiera te defekty, o ile pozwala na to grubość lakieru — przed pracą mierzymy powłokę, żeby nie zejść za nisko.",
+      "Pakiety są czytelne: Renowacja I Step od 700 zł (1–2 dni) na lżejsze zmatowienia, II Step od 1400 zł (2–3 dni) gdy rys jest więcej, pełna korekta wyceniana indywidualnie (3–4 dni) przy mocno zniszczonym lakierze. Nie każdy samochód kwalifikuje się do pełnej korekty. Tam, gdzie rysa idzie do podkładu, mówimy o tym wprost i proponujemy lokalną naprawę albo folię na element.",
+      "Po korekcie lakier jest „otwarty” na nowe zarysowania, jeśli wyjedziesz bez zabezpieczenia. Dlatego standardem jest powłoka albo PPF na przód. Audi RS6 z naszych realizacji pokazuje ten układ: najpierw odzyskanie głębi, potem ochrona. Cupra Leon ST po detailingu zewnętrznym też opiera się na czystym lakierze, nie na filtrze z Instagrama.",
+      "Wycenę robimy po oględzinach albo zdjęciach w świetle dziennym. Napisz model, kolor i czy auto było już polerowane. Z Turku odbieramy door to door bezpłatnie; z okolic umawiamy odbiór, żebyś nie stał w kolejce na myjni i nie oddawał auta „w ciemno”. Po odbiorze dostajesz zalecenia mycia — bez tego efekt zjedzie w kilka weekendów.",
+      "Jeśli celem jest sprzedaż auta, korekta podnosi pierwsze wrażenie mocniej niż wosk na brudnym lakierze. Jeśli celem jest zostawienie auta na lata, łączymy ją z PPF albo powłoką. Te usługi mają osobne strony w ofercie — tam jest też porównanie, kiedy folia wygrywa z powłoką."
+    ],
     benefits: [
       "Usunięcie drobnych rys i zmatowień",
       "Poprawa głębi koloru oraz szklistości",
@@ -295,6 +320,14 @@ export const services: Service[] = [
     },
     lead:
       "Folie do szyb poprawiają estetykę auta, dają więcej prywatności i ograniczają nagrzewanie wnętrza w słoneczne dni. Dobieramy stopień przyciemnienia tak, aby efekt pasował do auta i oczekiwań właściciela.",
+    seoTitle: "Przyciemnianie szyb Turek | od 300 zł | Sleek Car",
+    body: [
+      "Przyciemnianie szyb w Sleek Car to folie dobrane do auta i przepisów, nie najciemniejszy rolka „na pokaz”. Studio jest w Turku; przyjeżdżają też auta z Konina, Koła, Kalisza i Uniejowa. Usługa zaczyna się od 300 zł, a konkret zależy od liczby szyb, typu folii i tego, czy łączymy ją z przyciemnianiem lamp albo PPF.",
+      "Mamy do wyboru kilka stopni przyciemnienia. Przednie szyby boczne dobieramy tak, żeby auto było legalne w ruchu drogowym — nie idziemy w limuzyny, które świecą się na kontroli. Tył i szyba tylna mogą być ciemniejsze, jeśli zależy Ci na prywatności dzieci albo sprzętu. Folia ogranicza nagrzewanie kabiny i UV, więc latem klimatyzacja ma lżejszą robotę.",
+      "Aplikacja wymaga czystej szyby i cierpliwości przy przetłoczeniach. Docinamy folię do kształtu, odprowadzamy wodę i kontrolujemy krawędzie. Po usłudze przez krótki czas folia wiąże się z szybą — nie opuszczamy szyb od razu i nie myjemy ich agresywną chemią. Szczegóły dostajesz przy odbiorze.",
+      "Przyciemnianie dobrze wygląda w komplecie z resztą auta: ciemne szyby przy zmatowionym lakierze tylko podkreślą rysy. Jeśli planujesz korektę albo PPF, umówimy kolejność tak, żeby nie kłaść folii na brud i nie polerować auta z otwartymi, świeżymi krawędziami szyb. Lampy mają osobną usługę — to inna folia i inna odpowiedzialność za światło mijania.",
+      "Na wycenę wystarczy model i informacja, czy przyciemniamy tył, czy cały zestaw poza przednią szybą czołową. Możesz podjechać na Milewskiego 10E albo skorzystać z odbioru. Stare adresy strony typu /przyciemnianie-szyb prowadzą już tutaj, na aktualną ofertę."
+    ],
     benefits: [
       "Lepszy wygląd auta",
       "Ograniczenie nagrzewania wnętrza",
