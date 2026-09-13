@@ -1,13 +1,13 @@
 # Prismic content model dla Sleek Car
 
-Ten plik opisuje strukturę, którą warto przygotować w Prismic przed podpięciem CMS-a do Next.js.
-Obecnie strona korzysta z lokalnego pliku `src/lib/content.ts`, ale jego struktura jest celowo zbliżona do poniższego modelu.
+Ten plik opisuje typy i pola w Prismic, z których Next.js czyta treści (`src/lib/prismic-content.ts`).
+`src/lib/content.ts` trzyma tylko typy TypeScript oraz domyślne dane chrome (settings, nawigacja) — nie katalog usług, realizacji ani wpisów. Puste pole w Prismic zostaje puste; brakujący UID zwraca 404.
 
 ## Założenia
 
-- Strony mają być generowane statycznie przez Next.js.
-- Treści usług, realizacji, wpisów i opinii docelowo pochodzą z Prismic.
-- Assety z katalogu `assets/` zostają lokalnie tylko na czas projektowania. Docelowo zdjęcia trafiają do Media Library w Prismic.
+- Strony są generowane statycznie przez Next.js.
+- Treści usług, realizacji, wpisów i opinii pochodzą z Prismic.
+- Lokalny katalog `assets/` zostaje jako fallback OG i chrome; zdjęcia dokumentów są w Media Library w Prismic.
 - Adres potwierdzony do publikacji: `ul. Milewskiego 10E`.
 - Linki do Facebooka i Instagrama trzeba wkleić w `settings`, gdy Patryk je potwierdzi.
 
