@@ -18,6 +18,10 @@ export function absoluteUrl(path = "") {
     return siteUrl;
   }
 
+  if (/^https?:\/\//i.test(path)) {
+    return path;
+  }
+
   return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
