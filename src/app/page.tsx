@@ -55,6 +55,8 @@ export default async function HomePage() {
           alt={home.heroImage.alt}
           fill
           priority
+          fetchPriority="high"
+          decoding="sync"
           quality={60}
           sizes="(min-width: 1280px) 1200px, 100vw"
           className="hero-image"
