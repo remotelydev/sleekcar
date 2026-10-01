@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
+import path from "path";
+
+const emptyPolyfill = path.join(__dirname, "src/lib/empty-polyfill.js");
 
 const nextConfig: NextConfig = {
+  webpack: (config, { isServer, webpack }) => {
+    if (!isServer) {
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /next[/\\]dist[/\\]build[/\\]polyfills[/\\]polyfill-module\.js$/,
+          emptyPolyfill
+        )
+      );
+    }
+    return config;
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
