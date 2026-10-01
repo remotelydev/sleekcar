@@ -132,6 +132,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
             alt={service.heroImage.alt}
             fill
             priority
+            fetchPriority="high"
+            decoding="sync"
             sizes="(min-width: 980px) 46vw, 100vw"
           />
         </div>

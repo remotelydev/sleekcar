@@ -52,6 +52,8 @@ export default async function RealizationsPage() {
           alt={page.heroImage.alt}
           fill
           priority
+          fetchPriority="high"
+          decoding="sync"
           sizes="100vw"
           className="page-hero-image"
         />
