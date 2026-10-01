@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { settings as fallbackSettings } from "@/lib/content";
 
 type MapEmbedProps = {
@@ -9,6 +9,17 @@ type MapEmbedProps = {
 
 export function MapEmbed({ settings = fallbackSettings }: MapEmbedProps) {
   const [showMap, setShowMap] = useState(false);
+
+  useEffect(() => {
+    if (document.readyState === "complete") {
+      setShowMap(true);
+      return;
+    }
+
+    const showAfterLoad = () => setShowMap(true);
+    window.addEventListener("load", showAfterLoad);
+    return () => window.removeEventListener("load", showAfterLoad);
+  }, []);
 
   return (
     <div className="map-frame">
@@ -20,10 +31,7 @@ export function MapEmbed({ settings = fallbackSettings }: MapEmbedProps) {
           allowFullScreen
         />
       ) : (
-        <button className="map-placeholder" type="button" onClick={() => setShowMap(true)}>
-          <span>Pokaż mapę dojazdu</span>
-          <small>Google Maps ładuje się dopiero po kliknięciu</small>
-        </button>
+        <div className="map-placeholder" aria-hidden="true" />
       )}
     </div>
   );
