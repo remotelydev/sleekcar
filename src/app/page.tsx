@@ -57,7 +57,8 @@ export default async function HomePage() {
           priority
           fetchPriority="high"
           decoding="sync"
-          sizes="100vw"
+          quality={60}
+          sizes="(min-width: 1280px) 1200px, 100vw"
           className="hero-image"
         />
         <div className="hero-overlay" />
