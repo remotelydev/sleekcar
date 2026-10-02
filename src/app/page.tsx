@@ -172,7 +172,7 @@ export default async function HomePage() {
         <div className="testimonial-grid">
           {home.testimonials.map((testimonial) => (
             <figure className="testimonial" key={testimonial.quote}>
-              <div className="stars" aria-label={`${testimonial.rating} na 5 gwiazdek`}>
+              <div className="stars" role="img" aria-label={`${testimonial.rating} na 5 gwiazdek`}>
                 {Array.from({ length: testimonial.rating }).map((_, index) => (
                   <Star aria-hidden="true" fill="currentColor" key={index} size={16} />
                 ))}

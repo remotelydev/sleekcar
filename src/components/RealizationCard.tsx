@@ -10,7 +10,7 @@ type RealizationCardProps = {
 export function RealizationCard({ realization }: RealizationCardProps) {
   return (
     <article className="image-card realization-card">
-      <Link href={`/realizacje/${realization.slug}`} aria-label={realization.title}>
+      <Link href={`/realizacje/${realization.slug}`}>
         <div className="image-card-media">
           <Image
             src={realization.coverImage.src}
