@@ -9,6 +9,7 @@
   --muted-strong: #e2e8f0;
   --accent: #b91c1c;
   --accent-strong: #dc2626;
+  --accent-text: #f87171;
   --accent-rgb: 185, 28, 28;
   --star: #fbbf24;
   --danger: #ef4444;
@@ -405,7 +406,7 @@ small {
 }
 
 .eyebrow {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.88rem;
   font-weight: 900;
   letter-spacing: 0.025em;
@@ -476,7 +477,7 @@ small {
 
 .text-link {
   align-items: center;
-  color: var(--accent-strong);
+  color: var(--accent-text);
   display: inline-flex;
   font-weight: 800;
   gap: 0.45rem;
