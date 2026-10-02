@@ -4,6 +4,9 @@ import path from "path";
 const emptyPolyfill = path.join(__dirname, "src/lib/empty-polyfill.js");
 
 const nextConfig: NextConfig = {
+  experimental: {
+    inlineCss: true
+  },
   webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
       config.plugins.push(
