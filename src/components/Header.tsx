@@ -23,7 +23,8 @@ export function Header({ settings = fallbackSettings }: HeaderProps) {
           alt="Sleek Car Autokosmetyka"
           width={158}
           height={48}
-          loading="eager"
+          quality={60}
+          sizes="8.8rem"
         />
       </Link>
 
