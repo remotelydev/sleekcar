@@ -16,7 +16,8 @@ export function ServiceCard({ service }: ServiceCardProps) {
             src={service.cardImage.src}
             alt={service.cardImage.alt}
             fill
-            sizes="(min-width: 980px) 25vw, (min-width: 640px) 50vw, 100vw"
+            quality={60}
+            sizes="(min-width: 900px) 25vw, (min-width: 640px) 50vw, calc(100vw - 2rem)"
           />
         </div>
         <div className="image-card-body">

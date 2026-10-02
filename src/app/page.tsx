@@ -57,7 +57,7 @@ export default async function HomePage() {
           priority
           fetchPriority="high"
           decoding="sync"
-          quality={60}
+          quality={50}
           sizes="(min-width: 1280px) 1200px, 100vw"
           className="hero-image"
         />
