@@ -10,7 +10,7 @@ type ServiceCardProps = {
 export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <article className="image-card">
-      <Link href={`/oferta/${service.slug}`} aria-label={service.title}>
+      <Link href={`/oferta/${service.slug}`}>
         <div className="image-card-media">
           <Image
             src={service.cardImage.src}

@@ -10,7 +10,7 @@ type PostCardProps = {
 export function PostCard({ post }: PostCardProps) {
   return (
     <article className="image-card post-card">
-      <Link href={`/aktualnosci/${post.slug}`} aria-label={post.title}>
+      <Link href={`/aktualnosci/${post.slug}`}>
         <div className="image-card-media">
           <Image
             src={post.coverImage.src}
