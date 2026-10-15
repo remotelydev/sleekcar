@@ -137,6 +137,12 @@ small {
   max-width: 8.8rem;
 }
 
+.site-menu {
+  height: 0;
+  position: static;
+  width: 0;
+}
+
 .site-nav {
   background: rgba(39, 39, 42, 0.98);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -150,7 +156,7 @@ small {
   top: 100%;
 }
 
-.site-header.is-menu-open .site-nav {
+.site-menu[open] .site-nav {
   display: flex;
 }
 
@@ -195,6 +201,7 @@ small {
   align-items: center;
   display: flex;
   gap: 0.5rem;
+  margin-right: 3.05rem;
 }
 
 .menu-toggle {
@@ -207,7 +214,52 @@ small {
   display: inline-flex;
   height: 2.55rem;
   justify-content: center;
+  list-style: none;
+  margin: 0;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
   width: 2.55rem;
+}
+
+.menu-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.menu-toggle::marker {
+  content: "";
+}
+
+.menu-icon-close,
+.menu-label-close {
+  display: none;
+}
+
+.site-menu[open] .menu-icon-open,
+.site-menu[open] .menu-label-open {
+  display: none;
+}
+
+.site-menu[open] .menu-icon-close {
+  display: block;
+}
+
+.menu-label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.site-menu[open] .menu-label-close {
+  display: inline;
 }
 
 .button {
@@ -1099,6 +1151,14 @@ small {
     padding: 0.85rem 2rem;
   }
 
+  .site-menu {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    height: auto;
+    width: auto;
+  }
+
   .site-nav {
     background: transparent;
     border-bottom: 0;
@@ -1109,6 +1169,10 @@ small {
     justify-content: flex-end;
     padding: 0;
     position: static;
+  }
+
+  .header-actions {
+    margin-right: 0;
   }
 
   .menu-toggle {
