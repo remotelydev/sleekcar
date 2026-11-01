@@ -41,6 +41,15 @@ function getVideoEmbedUrl(url: string) {
   return url;
 }
 
+/** Direct video files (e.g. reels uploaded to the Prismic Media Library) play in <video>. */
+function isVideoFile(url: string) {
+  try {
+    return /\.(mp4|mov|webm|m4v)$/i.test(new URL(url).pathname);
+  } catch {
+    return false;
+  }
+}
+
 export async function generateStaticParams() {
   const posts = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
@@ -127,7 +136,18 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <section className="section article-layout">
           <div className="article-copy">
-            {post.videoUrl ? (
+            {post.videoUrl && isVideoFile(post.videoUrl) ? (
+              <div className="video-embed video-file">
+                <video
+                  src={post.videoUrl}
+                  poster={post.coverImage.src || undefined}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={post.title}
+                />
+              </div>
+            ) : post.videoUrl ? (
               <div className="video-embed">
                 <iframe
                   src={getVideoEmbedUrl(post.videoUrl)}

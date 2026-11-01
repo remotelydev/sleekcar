@@ -1267,3 +1267,127 @@ small {
     font-size: 1.16rem;
   }
 }
+
+/* Owner panel (/panel) */
+.panel-narrow {
+  max-width: min(44rem, calc(100% - 2rem));
+}
+
+.panel-narrow .form-panel {
+  min-width: 0;
+}
+
+.panel-stack {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.contact-form select {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  color: var(--text);
+  min-height: 3rem;
+  padding: 0.8rem 0.9rem;
+}
+
+.contact-form select option {
+  background: var(--surface);
+}
+
+.contact-form input[type="file"] {
+  max-width: 100%;
+  min-height: auto;
+  min-width: 0;
+}
+
+.panel-targets {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  min-width: 0;
+  padding: 0.9rem;
+}
+
+.panel-targets legend {
+  color: var(--muted-strong);
+  font-weight: 800;
+  padding: 0 0.3rem;
+}
+
+.contact-form .panel-check {
+  align-items: center;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.contact-form .panel-check input {
+  accent-color: var(--accent);
+  height: 1.2rem;
+  min-height: auto;
+  width: 1.2rem;
+}
+
+.contact-form .panel-check span {
+  font-weight: 600;
+}
+
+.panel-progress {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel-progress progress {
+  accent-color: var(--accent);
+  width: 100%;
+}
+
+.panel-channels {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.panel-channels li {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.8rem;
+}
+
+.panel-channels p {
+  margin: 0;
+}
+
+.panel-badge {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.panel-channels li[data-status="done"] .panel-badge {
+  color: var(--success);
+}
+
+.panel-channels li[data-status="error"] .panel-badge {
+  color: var(--danger);
+}
+
+.video-embed.video-file {
+  aspect-ratio: 9 / 16;
+  max-width: 420px;
+}
+
+.video-embed video {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
