@@ -28,6 +28,19 @@ const nextConfig: NextConfig = {
       }
     ]
   },
+  async headers() {
+    const noindex = [
+      { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+      { key: "Cache-Control", value: "private, no-store" },
+      { key: "Referrer-Policy", value: "same-origin" },
+      { key: "X-Frame-Options", value: "DENY" }
+    ];
+    return [
+      { source: "/panel", headers: noindex },
+      { source: "/panel/:path*", headers: noindex },
+      { source: "/api/panel/:path*", headers: noindex }
+    ];
+  },
   async redirects() {
     return [
       {
